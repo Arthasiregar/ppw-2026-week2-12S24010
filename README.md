@@ -3,9 +3,9 @@
 Halaman web portofolio profil profesional (single page showcase) yang dibangun untuk memenuhi
 Tugas Mandiri Mata Kuliah **12S3101 — Pemrograman dan Pengujian Web**, Institut Teknologi Del.
 
-🔗 **Live demo:** _tambahkan tautan GitHub Pages di sini setelah deployment_
-🔗 **Repositori:** `ppw-2026-week2-[NIM]`
-
+   🔗 **Live demo:** https://arthasiregar.github.io/ppw-2026-week2-12S24010/
+   🔗 **Repositori:** `ppw-2026-week2-12S24010`
+   
 ## Fitur Utama
 
 - **Tentang Saya** — foto profil, ringkasan singkat, dan info cepat (aside).
