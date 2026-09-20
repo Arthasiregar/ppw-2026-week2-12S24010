@@ -187,7 +187,7 @@ img { max-width: 100%; display: block; }
 /* =========================================================
    3. HERO / ABOUT
 ========================================================= */
-.hero { padding-top: 64px; }
+.hero { padding-top: 64px; padding-bottom: 40px; }
 
 .hero-grid {
   display: grid;
@@ -239,6 +239,7 @@ img { max-width: 100%; display: block; }
 /* =========================================================
    4. SKILLS
 ========================================================= */
+.skills { padding-top: 40px; padding-bottom: 40px; }
 .skills-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -277,6 +278,7 @@ img { max-width: 100%; display: block; }
 /* =========================================================
    5. PROJECTS
 ========================================================= */
+.projects { padding-top: 40px; padding-bottom: 40px; }
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -404,6 +406,7 @@ img { max-width: 100%; display: block; }
 /* =========================================================
    7. EDUCATION
 ========================================================= */
+.education { padding-top: 40px; padding-bottom: 40px; }
 .education-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 .education-card {
   background: var(--white);
@@ -417,33 +420,9 @@ img { max-width: 100%; display: block; }
 .education-card p:not(.edu-meta) { color: var(--ink-soft); font-size: 0.92rem; }
 
 /* =========================================================
-   8. ACHIEVEMENTS / CERTIFICATES
+   8. CONTACT
 ========================================================= */
-.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.cert-card {
-  background: var(--white);
-  border-radius: var(--radius-md);
-  padding: 26px 28px;
-  box-shadow: var(--shadow-soft);
-}
-.cert-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
-.cert-issuer { font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-.cert-id { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 12px; }
-.cert-card > p:last-child { color: var(--ink-soft); font-size: 0.9rem; margin-top: 10px; }
-
-.cert-placeholder {
-  border: 2px dashed var(--pink-accent);
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.cert-placeholder h3 { color: var(--ink-soft); }
-.cert-placeholder p { color: var(--ink-soft); font-size: 0.9rem; }
-
-/* =========================================================
-   9. CONTACT
-========================================================= */
+.contact { padding-top: 40px; padding-bottom: 40px; }
 .contact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 44px; }
 
 .contact-list { margin-bottom: 30px; }
@@ -549,7 +528,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* =========================================================
-   10. FOOTER
+   9. FOOTER
 ========================================================= */
 .site-footer {
   background: var(--mauve);
@@ -607,7 +586,7 @@ img { max-width: 100%; display: block; }
 .back-to-top:hover { background: var(--pink-soft); color: var(--mauve); }
 
 /* =========================================================
-   11. RESPONSIVE
+   10. RESPONSIVE
 ========================================================= */
 @media (max-width: 900px) {
   .hero-grid {
