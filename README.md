@@ -1,67 +1,69 @@
 # Portofolio Pribadi — Artha Liebe Siregar
+**NIM:** 12S24010 &middot; **Kelas:** Sistem Informasi &middot; **Mata Kuliah:** 12S3101 Pemrograman dan Pengujian Web
 
-Halaman web portofolio profil profesional (single page showcase) yang dibangun untuk memenuhi
-Tugas Mandiri Mata Kuliah **12S3101 — Pemrograman dan Pengujian Web**, Institut Teknologi Del.
+🔗 **Live demo:** _tambahkan tautan GitHub Pages terbaru di sini setelah deployment branch `week3-bootstrap`_
+🔗 **Repositori:** `ppw-2026-week2-12S24010` (branch `week3-bootstrap`)
 
-   🔗 **Live demo:** https://arthasiregar.github.io/ppw-2026-week2-12S24010/
-   🔗 **Repositori:** `ppw-2026-week2-12S24010`
-   
+## Ringkasan Pembaruan Minggu 3
+
+Melanjutkan portofolio Minggu 2 (HTML5 semantik + CSS murni), pada Minggu 3 proyek ini
+direfaktor menggunakan **Bootstrap 5.3** dan Custom CSS Overrides, tanpa mengubah struktur
+semantik HTML5 yang sudah ada.
+
+## Tabel Perbandingan: Sebelum vs Sesudah Integrasi Framework
+
+| Aspek | Sebelum (Minggu 2) | Sesudah (Minggu 3) |
+|---|---|---|
+| **CSS Framework** | CSS murni (`style.css`), tanpa framework | Bootstrap 5.3.3 CDN + Bootstrap Icons, di-override lewat `custom-style.css` yang dimuat setelah Bootstrap |
+| **JavaScript** | Tanpa JavaScript sama sekali | Menggunakan Bootstrap JS Bundle (untuk navbar collapse & modal) + skrip validasi form standar Bootstrap |
+| **Navigasi** | Menu horizontal statis, wrap manual di layar kecil | Navbar Bootstrap responsif dengan tombol hamburger (`navbar-toggler`) yang collapse/expand di layar ponsel |
+| **Tampilan Proyek** | 2 kolom statis (Independen/Tim) berisi kartu tanpa interaksi tambahan | Grid responsif `row-cols-1 row-cols-md-2 row-cols-lg-3` (5 kartu), tiap kartu terhubung ke **Modal Dialog** detail proyek |
+| **Formulir Kontak** | Label + input polos di atas tiap field | **Floating Labels** (`.form-floating`), **Input Group** berikon, serta umpan balik validasi visual (`.invalid-feedback`) |
+| **Tata Letak** | CSS Grid & Flexbox custom, breakpoint manual (900px/768px/480px) | Sistem grid 12-kolom Bootstrap (`container`, `row`, `col-*`) dikombinasikan dengan sedikit custom CSS untuk penyesuaian |
+| **Tema Warna** | 4 CSS variable (`--cream`, `--pink-soft`, `--pink-accent`, `--mauve`) | Variable dipertahankan dan ditambah (12+ variable total: radius, shadow, font, dst.), dipakai untuk menimpa warna default Bootstrap tanpa `!important` |
+| **Tabel Data** | Zebra sederhana lewat `:hover` saja | Ditambah `:nth-child(even)` untuk zebra striping permanen, bukan hanya saat hover |
+
 ## Fitur Utama
 
-- **Tentang Saya** — foto profil, ringkasan singkat, dan info cepat (aside).
-- **Keahlian** — tech stack dan daftar kemampuan.
-- **Proyek** — dikelompokkan menjadi Proyek Independen dan Proyek Tim, lengkap dengan tools,
-  peran, dan tautan ke masing-masing proyek; disertai tabel rekapitulasi proyek/matakuliah.
-- **Pengalaman** — riwayat organisasi dalam format timeline.
-- **Pendidikan** — riwayat SMA dan perkuliahan.
-- **Sertifikat & Pencapaian** — sertifikat yang telah diperoleh.
-- **Kontak** — email, telepon, media sosial, dan formulir kontak interaktif.
+- **Navbar responsif** — sticky-top, brand identity, hamburger toggle berfungsi penuh di mobile.
+- **Hero Section** — proporsional dengan CTA "Hubungi Saya" dan "Lihat Proyek".
+- **Grid Proyek & Modal** — 5 kartu proyek (row-cols responsif), masing-masing dengan tombol "Detail" yang membuka Modal Dialog berisi deskripsi lengkap, tools, dan tautan proyek.
+- **Formulir Kontak Modern** — Floating Labels, Input Group berikon, select kategori, radio preferensi kontak, checkbox persetujuan, dan validasi visual native + Bootstrap.
+- **Custom Theming** — 12+ CSS custom properties di `:root`, palet warna personal (bukan warna default Bootstrap), transisi mikro-interaksi pada kartu dan tombol.
+- **Advanced Selectors** — child combinator (`>`), adjacent sibling (`+`), `:is()`, `:nth-child()`, `:focus-within`, dan selector atribut (`[data-accent="..."]`) diterapkan pada konteks yang relevan, bukan sekadar demo.
 
 ## Spesifikasi Teknis
 
-- HTML5 semantik: `header`, `nav`, `main`, `section`, `article`, `aside`, `footer`.
-- Tabel data semantik lengkap (`caption`, `thead`, `tbody`, `tfoot`, `scope`).
-- Dua jenis HTML list (`ul` dan `ol`) digunakan sesuai konteks (skill, timeline, dsb).
-- Formulir kontak dengan 2 `fieldset`/`legend`, 7 tipe kontrol input (text, email, tel, number,
-  select, radio, checkbox, textarea), label eksplisit (`label for`), dan validasi native (`required`).
-- CSS eksternal (`style.css`) dengan universal box-sizing reset, palet warna 60-30-10, border-radius,
-  box-shadow, CSS Flexbox & Grid, serta responsif melalui media queries (768px, 900px, 480px).
-- Dibangun murni dengan HTML5 & CSS3 sesuai cakupan modul (tanpa JavaScript) — navigasi mobile,
-  tombol kembali ke atas, dan pengiriman pesan kontak seluruhnya berjalan dengan HTML/CSS native.
+- Struktur semantik HTML5 tetap utuh: `header`, `nav`, `main`, `section`, `article`, `footer`.
+- `custom-style.css` dimuat **setelah** `bootstrap.min.css` — semua override warna/komponen memanfaatkan urutan cascade, **tanpa satu pun `!important`**.
+- Minimal 6 tipe kontrol input pada form dipertahankan dari Minggu 2 (text, email, tel, select, radio, checkbox, textarea), sekarang dibungkus komponen Bootstrap modern.
+- Tabel rekap proyek (caption, thead, tbody, tfoot, scope) dipertahankan dari Minggu 2.
 
 ## Palet Warna
 
 | Warna | Hex | Peran |
 |---|---|---|
-| Cream | `#FFF5E4` | Warna dominan (60%) — latar belakang |
-| Pink Lembut | `#FADADD` | Warna sekunder (30%) — permukaan kartu & aksen lembut |
-| Pink Koral | `#FFB7B2` | Aksen (10%) — highlight, badge, border |
-| Mauve | `#A26769` | Aksen (10%) — judul, tombol utama, footer |
+| Cream | `#FFF5E4` | Dominan (60%) — latar belakang |
+| Pink Lembut | `#FADADD` | Sekunder (30%) — permukaan kartu & aksen lembut |
+| Pink Koral | `#FFB7B2` | Aksen (10%) — highlight, badge, banner |
+| Mauve | `#A26769` | Aksen (10%) — navbar, judul, tombol utama |
 
 ## Cara Menjalankan Secara Lokal
 
-1. Clone repositori ini.
+1. Clone repositori ini, checkout ke branch `week3-bootstrap`.
 2. Buka `index.html` langsung di browser, atau gunakan ekstensi **Live Server** di VS Code.
+3. Bootstrap CSS/JS dan Bootstrap Icons dimuat lewat CDN — pastikan ada koneksi internet saat membuka halaman.
 
 ## Struktur Berkas
 
 ```
 ├── index.html
-├── style.css
+├── custom-style.css
 ├── assets/
-│   ├── profile.jpg        (ganti dengan foto profil asli)
-│   └── CV_Artha_Liebe_Siregar.pdf   (ganti dengan file CV asli)
+│   ├── images/photo-almetdel.jpg
+│   └── CV_Artha_Siregar.pdf
 └── README.md
 ```
 
-## Catatan Sebelum Dipublikasikan
-
-- Ganti `assets/profile.jpg` dengan foto profil asli.
-- Tambahkan file CV di `assets/CV_Artha_Liebe_Siregar.pdf` (atau perbarui tautannya di `index.html`).
-- Lengkapi tautan media sosial TikTok dan tautan repositori/dokumen tiap proyek.
-- Lengkapi bagian Pendidikan (SMA) dan tambahkan pencapaian lain di bagian Sertifikat & Pencapaian.
-- Perbarui tautan live demo di bagian atas README setelah GitHub Pages aktif.
-
----
 Disusun oleh Artha Liebe Siregar untuk Mata Kuliah Pemrograman dan Pengujian Web (12S3101),
 Institut Teknologi Del.

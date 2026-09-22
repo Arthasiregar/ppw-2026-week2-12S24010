@@ -1,0 +1,319 @@
+/* =========================================================
+   0. CUSTOM PROPERTIES (min. 6 required — kita punya 12+)
+   Dimuat SETELAH bootstrap.min.css, jadi cukup mengandalkan
+   urutan cascade untuk menimpa gaya bawaan Bootstrap —
+   TIDAK ADA satu pun !important dipakai di file ini.
+========================================================= */
+:root {
+  /* 60% — dominant neutral */
+  --cream: #FFF5E4;
+  /* 30% — secondary surface */
+  --pink-soft: #FADADD;
+  /* 10% — accents */
+  --pink-accent: #FFB7B2;
+  --mauve: #A26769;
+
+  --ink: #3D2A2A;
+  --ink-soft: #6E5152;
+  --white: #FFFFFF;
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+
+  --shadow-soft: 0 10px 25px -10px rgba(162, 103, 105, 0.35);
+  --shadow-hover: 0 18px 32px -12px rgba(162, 103, 105, 0.4);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* =========================================================
+   1. BASE OVERRIDES
+========================================================= */
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+}
+
+/* Pseudo-class :is() dipakai untuk mengelompokkan seluruh
+   heading dalam satu deklarasi tanpa mengulang selector */
+:is(h1, h2, h3, h4) {
+  font-family: var(--font-display);
+  color: var(--mauve);
+  font-weight: 600;
+}
+
+a { text-decoration: none; }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--mauve);
+  color: var(--white);
+  padding: 10px 16px;
+  z-index: 1080;
+}
+.skip-link:focus { left: 0; }
+
+.section-space { padding-block: 72px; }
+.bg-projects { background: var(--pink-soft); }
+
+.section-heading { margin-bottom: 32px; max-width: 640px; }
+.section-heading p { color: var(--ink-soft); }
+
+/* =========================================================
+   2. NAVBAR — override .navbar-dark bawaan Bootstrap
+========================================================= */
+.custom-navbar {
+  background-color: var(--mauve);
+}
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--white);
+}
+.logo span { color: var(--pink-soft); }
+
+/* Child combinator (>) : hanya menyasar <a> anak langsung .nav-item,
+   bukan <a> di tempat lain */
+.navbar-nav > .nav-item > .nav-link {
+  color: rgba(255,255,255,0.88);
+  font-weight: 500;
+}
+/* Adjacent sibling combinator (+) : beri jarak antar nav-item
+   tanpa bergantung pada utility gap Bootstrap */
+.nav-item + .nav-item { margin-left: 4px; }
+
+.navbar-nav > .nav-item > .nav-link:hover,
+.navbar-nav > .nav-item > .nav-link:focus-visible {
+  color: var(--white);
+  text-decoration: underline;
+  text-decoration-color: var(--pink-accent);
+}
+
+/* =========================================================
+   3. BUTTONS — menimpa .btn / .btn-primary bawaan Bootstrap
+   lewat cascade order, BUKAN !important
+========================================================= */
+.btn { border-radius: 999px; font-weight: 600; }
+
+.custom-btn-primary {
+  background-color: var(--mauve);
+  color: var(--white);
+  border: 1.5px solid var(--mauve);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+.custom-btn-primary:hover {
+  background-color: #8c5153;
+  border-color: #8c5153;
+  color: var(--white);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.custom-btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--mauve);
+  color: var(--mauve);
+}
+.custom-btn-outline:hover { background-color: var(--mauve); color: var(--white); }
+
+.custom-btn-ghost {
+  background-color: var(--pink-soft);
+  border: 1.5px solid transparent;
+  color: var(--mauve);
+}
+.custom-btn-ghost:hover { background-color: var(--pink-accent); color: var(--ink); }
+
+/* =========================================================
+   4. HERO
+========================================================= */
+.hero-photo-wrap {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--pink-soft);
+  box-shadow: var(--shadow-soft);
+  border: 6px solid var(--white);
+}
+.hero-photo { width: 100%; height: 100%; object-fit: cover; }
+
+.role { font-weight: 600; color: var(--ink); }
+.bio { color: var(--ink-soft); max-width: 60ch; }
+
+.hero-aside {
+  background: var(--pink-soft);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-inline: 0;
+}
+.aside-title { font-size: 1rem; margin-bottom: 4px; }
+.fact-label { font-size: 0.78rem; font-weight: 700; color: var(--mauve); margin-bottom: 2px; }
+.fact-value { font-size: 0.92rem; margin-bottom: 0; }
+
+/* =========================================================
+   5. BADGES — menimpa .badge default Bootstrap (bg-secondary dsb.)
+========================================================= */
+.custom-badge {
+  background-color: var(--white);
+  border: 1.5px solid var(--pink-accent);
+  color: var(--mauve);
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 6px 12px;
+}
+.custom-badge-soft {
+  background-color: var(--pink-accent);
+  color: var(--ink);
+  font-weight: 700;
+}
+.custom-badge-soft-team {
+  background-color: var(--mauve);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.check-list li { margin-bottom: 10px; color: var(--ink-soft); }
+.check-list .bi-check-circle-fill { color: var(--pink-accent); margin-right: 8px; }
+
+/* =========================================================
+   6. PROJECT CARDS — override .card bawaan Bootstrap
+========================================================= */
+.project-card {
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 14px -8px rgba(162,103,105,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+.project-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+.card-banner {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--white);
+  background: var(--mauve);
+}
+/* Selector atribut : banner tim memakai warna aksen berbeda
+   dari banner independen, tanpa menambah class baru */
+.project-card[data-accent="coral"] .card-banner {
+  background: linear-gradient(135deg, var(--pink-accent), var(--mauve));
+}
+
+.project-desc { color: var(--ink-soft); font-size: 0.9rem; }
+.project-role { color: var(--ink); font-weight: 600; }
+
+/* =========================================================
+   7. TABLE — zebra striping pakai :nth-child (bukan :hover saja)
+========================================================= */
+.recap-table {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.recap-table caption {
+  caption-side: top;
+  padding: 16px 20px;
+  font-weight: 600;
+  color: var(--mauve);
+  background: var(--pink-soft);
+}
+.recap-table thead th { background: var(--mauve); color: var(--white); }
+.recap-table tbody tr:nth-child(even) { background: rgba(250, 218, 221, 0.25); }
+.recap-table tbody tr:hover { background: rgba(250, 218, 221, 0.45); }
+.status-done { background: #e4f2e5; color: #2f7a3c; }
+.status-progress { background: #fdeecb; color: #a3690c; }
+
+/* =========================================================
+   8. TIMELINE
+========================================================= */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  border-left: 2.5px solid var(--pink-accent);
+}
+.timeline-item { position: relative; padding-bottom: 30px; }
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -34.5px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--mauve);
+  border: 3px solid var(--cream);
+}
+.timeline-org { font-weight: 600; color: var(--ink); }
+.timeline-item p:not(.timeline-org) { color: var(--ink-soft); }
+
+/* =========================================================
+   9. EDUCATION
+========================================================= */
+.education-card { border: none; border-top: 4px solid var(--pink-accent); box-shadow: var(--shadow-soft); }
+.edu-meta { font-weight: 600; color: var(--mauve); }
+
+/* =========================================================
+   10. CONTACT FORM — floating labels & validation Bootstrap,
+   ditimpa agar sesuai tema (fokus warna, radius, dsb.)
+========================================================= */
+.contact-form {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* :focus-within — seluruh kartu form ikut menyorot begitu
+   salah satu input di dalamnya difokuskan */
+.contact-form:focus-within { box-shadow: var(--shadow-hover); }
+
+.form-control, .form-select {
+  border-radius: var(--radius-sm);
+  border-color: var(--pink-soft);
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--mauve);
+  box-shadow: 0 0 0 3.5px rgba(162, 103, 105, 0.18);
+}
+.form-floating > label { color: var(--ink-soft); }
+.input-group-text { background: var(--pink-soft); border-color: var(--pink-soft); color: var(--mauve); }
+
+.form-check-input:checked {
+  background-color: var(--mauve);
+  border-color: var(--mauve);
+}
+.form-check-input:focus {
+  box-shadow: 0 0 0 3.5px rgba(162, 103, 105, 0.18);
+}
+
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid { border-color: #d9534f; }
+.was-validated .form-control:valid,
+.was-validated .form-select:valid { border-color: #2f7a3c; }
+
+.form-note { font-size: 0.82rem; color: var(--mauve); margin-top: 10px; }
+
+/* =========================================================
+   11. FOOTER
+========================================================= */
+.custom-footer { background: var(--mauve); color: var(--white); }
+.custom-footer a { color: rgba(255,255,255,0.85); }
+.custom-footer a:hover { color: var(--pink-soft); }
+
+/* =========================================================
+   12. RESPONSIVE (Bootstrap grid menangani sebagian besar;
+   ini hanya penyesuaian kecil yang spesifik ke desain kita)
+========================================================= */
+@media (max-width: 991.98px) {
+  .hero-photo-wrap { max-width: 320px; margin-inline: auto; }
+}

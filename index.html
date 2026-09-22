@@ -4,393 +4,535 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artha Liebe Siregar — Portofolio</title>
-<meta name="description" content="Portofolio Artha Liebe Siregar, mahasiswa Sistem Informasi Institut Teknologi Del yang menekuni pengembangan iOS dan full stack.">
+<meta name="description" content="Portofolio Artha Liebe Siregar, mahasiswa Sistem Informasi Institut Teknologi Del.">
+
+<!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
+<!-- Bootstrap 5.3 CSS CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- Custom CSS dimuat SETELAH Bootstrap agar override berjalan lewat cascade, bukan !important -->
+<link rel="stylesheet" href="custom-style.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Langsung ke konten utama</a>
 
-<header class="site-header" id="top">
-  <div class="header-inner">
-    <a href="#top" class="logo">Artha Liebe<span>.</span></a>
-
-    <nav aria-label="Navigasi utama">
-      <ul id="primaryNav" class="nav-list">
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#skills">Keahlian</a></li>
-        <li><a href="#projects">Proyek</a></li>
-        <li><a href="#experience">Pengalaman</a></li>
-        <li><a href="#education">Pendidikan</a></li>
-        <li><a href="#achievements">Sertifikat</a></li>
-        <li><a href="#contact">Kontak</a></li>
-      </ul>
-    </nav>
-
-    <div class="header-actions">
-      <a class="btn btn-outline" href="assets/CV_Artha_Siregar.pdf" target="_blank" rel="noopener">Lihat CV</a>
+<!-- ============ HEADER / NAVBAR ============ -->
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top" id="top">
+    <div class="container">
+      <a class="navbar-brand logo" href="#top">Artha Liebe<span>.</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav"
+              aria-controls="primaryNav" aria-expanded="false" aria-label="Buka menu navigasi">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="primaryNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Keahlian</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Proyek</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Pengalaman</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Pendidikan</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
+        </ul>
+        <a class="btn custom-btn-outline ms-lg-3 mt-3 mt-lg-0" href="assets/CV_Artha_Siregar.pdf" target="_blank" rel="noopener">
+          <i class="bi bi-file-earmark-person me-1"></i>Lihat CV
+        </a>
+      </div>
     </div>
-  </div>
+  </nav>
 </header>
 
 <main id="main">
 
-  <!-- ============ ABOUT ============ -->
-  <section id="about" class="section hero">
-    <div class="hero-grid">
-      <div class="hero-text">
-        <h1>Artha Liebe Siregar</h1>
-        <p class="role">Mahasiswa Sistem Informasi &middot; Calon iOS Developer &amp; Full Stack Developer</p>
-        <p class="bio">
-          Saya mahasiswa Program Studi Sistem Informasi di Institut Teknologi Del 
-          dengan minat besar mendalami sisi front end pada pengembangan full stack.
-          Saya senang membangun antarmuka yang rapi, terstruktur, dan nyaman digunakan, sambil tetap aktif
-          berorganisasi dan mengasah kemampuan teknis lewat proyek nyata.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Hubungi Saya</a>
-          <a class="btn btn-ghost" href="#projects">Lihat Proyek</a>
+  <!-- ============ ABOUT / HERO ============ -->
+  <section id="about" class="section-space hero-section">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-7">
+          <h1 class="display-5 fw-bold">Artha Liebe Siregar</h1>
+          <p class="role">Mahasiswa Sistem Informasi &middot; Calon iOS Developer &amp; Full Stack Developer</p>
+          <p class="bio">
+            Saya mahasiswa Program Studi Sistem Informasi di Institut Teknologi Del dengan minat besar
+            mendalami sisi front end pada pengembangan full stack. Saya senang membangun antarmuka yang
+            rapi, terstruktur, dan nyaman digunakan.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a class="btn custom-btn-primary btn-lg" href="#contact">Hubungi Saya</a>
+            <a class="btn custom-btn-ghost btn-lg" href="#projects">Lihat Proyek</a>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <figure class="hero-photo-wrap mb-0">
+            <img src="assets/images/photo-almetdel.jpg" alt="Foto profil Artha Liebe Siregar" class="hero-photo">
+          </figure>
         </div>
       </div>
 
-      <figure class="hero-photo-wrap">
-        <img src="assets/images/photo-almetdel.jpg" alt="Foto profil Artha Liebe Siregar" class="hero-photo">
-      </figure>
-
-      <aside class="hero-aside" aria-label="Info singkat">
-        <h2 class="aside-title">Sekilas</h2>
-        <ul class="fact-list">
-          <li><strong>Institusi</strong><span>Institut Teknologi Del</span></li>
-          <li><strong>Program Studi</strong><span>S1 Sistem Informasi</span></li>
-          <li><strong>Fokus</strong><span>Front End</span></li>
-          <li><strong>Status</strong><span>Terbuka untuk kolaborasi &amp; magang</span></li>
-        </ul>
+      <aside class="hero-aside row g-4 mt-2" aria-label="Info singkat">
+        <h2 class="aside-title col-12">Sekilas</h2>
+        <div class="col-6 col-md-3">
+          <p class="fact-label">Institusi</p>
+          <p class="fact-value">Institut Teknologi Del</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <p class="fact-label">Program Studi</p>
+          <p class="fact-value">S1 Sistem Informasi</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <p class="fact-label">Fokus</p>
+          <p class="fact-value">Front End</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <p class="fact-label">Status</p>
+          <p class="fact-value">Terbuka untuk kolaborasi</p>
+        </div>
       </aside>
     </div>
   </section>
 
   <!-- ============ SKILLS ============ -->
-  <section id="skills" class="section skills">
-    <div class="section-heading">
-      <h2>Keahlian</h2>
-      <p>Kombinasi tools yang saya gunakan sehari-hari dan hal-hal yang bisa saya kerjakan dengannya.</p>
-    </div>
-
-    <div class="skills-columns">
-      <div class="skills-block">
-        <h3>My Tech Stack</h3>
-        <ul class="tag-list">
-          <li>Swift &amp; SwiftUI</li>
-          <li>HTML5</li>
-          <li>CSS3 &amp; Flexbox/Grid</li>
-          <li>JavaScript</li>
-          <li>Git &amp; GitHub</li>
-          <li>Figma</li>
-          <li>MySQL</li>
-          <li>Python</li>
-        </ul>
+  <section id="skills" class="section-space">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Keahlian</h2>
+        <p>Kombinasi tools yang saya gunakan sehari-hari dan hal-hal yang bisa saya kerjakan dengannya.</p>
       </div>
 
-      <div class="skills-block">
-        <h3>What I Can Do</h3>
-        <ul class="check-list">
-          <li>Merancang dan membangun antarmuka web yang responsif serta accessible (WCAG 2.2)</li>
-          <li>Mengembangkan aplikasi iOS sederhana dengan Swift &amp; SwiftUI</li>
-          <li>Menyusun struktur data dan halaman semantik menggunakan HTML5 &amp; CSS modern</li>
-          <li>Mengelola alur kerja tim dan versi kode dengan Git &amp; GitHub</li>
-          <li>Merancang tampilan antarmuka (UI) sederhana di Figma sebelum implementasi</li>
-        </ul>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <h3 class="h5">My Tech Stack</h3>
+          <ul class="tag-list list-unstyled d-flex flex-wrap gap-2">
+            <li class="badge custom-badge">Swift &amp; SwiftUI</li>
+            <li class="badge custom-badge">HTML5</li>
+            <li class="badge custom-badge">CSS3 &amp; Bootstrap</li>
+            <li class="badge custom-badge">JavaScript</li>
+            <li class="badge custom-badge">Git &amp; GitHub</li>
+            <li class="badge custom-badge">Figma</li>
+            <li class="badge custom-badge">MySQL</li>
+            <li class="badge custom-badge">Python</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-6">
+          <h3 class="h5">What I Can Do</h3>
+          <ul class="check-list list-unstyled">
+            <li><i class="bi bi-check-circle-fill"></i> Merancang dan membangun antarmuka web yang responsif serta accessible</li>
+            <li><i class="bi bi-check-circle-fill"></i> Mengembangkan aplikasi iOS sederhana dengan Swift &amp; SwiftUI</li>
+            <li><i class="bi bi-check-circle-fill"></i> Menyusun halaman semantik menggunakan HTML5 &amp; CSS framework modern</li>
+            <li><i class="bi bi-check-circle-fill"></i> Mengelola alur kerja tim dan versi kode dengan Git &amp; GitHub</li>
+            <li><i class="bi bi-check-circle-fill"></i> Merancang tampilan antarmuka (UI) sederhana di Figma</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ PROJECTS ============ -->
-  <section id="projects" class="section projects">
-    <div class="section-heading">
-      <h2>Proyek</h2>
-    </div>
+  <section id="projects" class="section-space bg-projects">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Proyek</h2>
+        <p>Diklik untuk lihat detail, atau langsung buka tautan proyeknya.</p>
+      </div>
 
-    <div class="projects-grid">
-      <div class="project-column">
-        <h3>Proyek Independen</h3>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
-        <article class="project-card">
-          <h4>Portofolio Pribadi Accessible</h4>
-          <p class="project-desc">Halaman portofolio single-page ini sendiri, dibangun sesuai standar semantik HTML5 dan estetika modern.</p>
-          <ul class="chip-list">
-            <li>HTML5</li><li>CSS3</li><li>JavaScript</li>
-          </ul>
-          <p class="project-role">Peran: Perancang &amp; Pengembang Tunggal</p>
-          <a class="view-link" href="http://127.0.0.1:5500/index.html#projects" target="_blank" rel="noopener">Lihat Proyek &rarr;</a>
-        </article>
+        <!-- Card 1 -->
+        <div class="col">
+          <article class="card h-100 project-card" data-accent="mauve">
+            <div class="card-banner"><i class="bi bi-window"></i></div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge custom-badge-soft mb-2 align-self-start">Independen</span>
+              <h3 class="card-title h5">Portofolio Pribadi Accessible</h3>
+              <p class="card-text project-desc">Halaman portofolio single-page ini sendiri, dibangun sesuai standar semantik HTML5 dan Bootstrap 5.</p>
+              <ul class="chip-list list-unstyled d-flex flex-wrap gap-1 mb-3">
+                <li class="badge custom-badge">HTML5</li><li class="badge custom-badge">CSS3</li><li class="badge custom-badge">Bootstrap</li>
+              </ul>
+              <p class="project-role small mb-3">Peran: Perancang &amp; Pengembang Tunggal</p>
+              <div class="mt-auto d-flex gap-2">
+                <button type="button" class="btn custom-btn-outline btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#modalPortofolio">Detail</button>
+                <a class="btn custom-btn-primary btn-sm flex-fill" href="https://arthasiregar.github.io/ppw-2026-week2-12S24010/" target="_blank" rel="noopener">Lihat Proyek</a>
+              </div>
+            </div>
+          </article>
+        </div>
 
+        <!-- Card 2 -->
+        <div class="col">
+          <article class="card h-100 project-card" data-accent="mauve">
+            <div class="card-banner"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge custom-badge-soft mb-2 align-self-start">Independen</span>
+              <h3 class="card-title h5">Expense &amp; Budget Visualizer</h3>
+              <p class="card-text project-desc">Aplikasi berbasis web untuk membantu pengguna melacak pengeluaran dan memvisualisasikan anggaran mereka.</p>
+              <ul class="chip-list list-unstyled d-flex flex-wrap gap-1 mb-3">
+                <li class="badge custom-badge">HTML</li><li class="badge custom-badge">CSS</li><li class="badge custom-badge">JavaScript</li>
+              </ul>
+              <p class="project-role small mb-3">Peran: Frontend Developer</p>
+              <div class="mt-auto d-flex gap-2">
+                <button type="button" class="btn custom-btn-outline btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#modalExpense">Detail</button>
+                <a class="btn custom-btn-primary btn-sm flex-fill" href="https://github.com/Arthasiregar/CodingCamp-8June26-arthaliebesiregar" target="_blank" rel="noopener">Lihat Proyek</a>
+              </div>
+            </div>
+          </article>
+        </div>
 
-        <article class="project-card">
-          <h4>Expense & Budget Visualizer</h4>
-          <p class="project-desc">Aplikasi berbasis web untuk membantu pengguna melacak pengeluaran dan memvisualisasikan anggaran mereka.</p>
-          <ul class="chip-list">
-            <li>HTML</li><li>CSS</li><li>JavaScript</li>
-          </ul>
-          <a class="view-link" href="https://github.com/Arthasiregar/CodingCamp-8June26-arthaliebesiregar" target="_blank" rel="noopener">Lihat Proyek &rarr;</a>
-        </article>
+        <!-- Card 3 -->
+        <div class="col">
+          <article class="card h-100 project-card" data-accent="coral">
+            <div class="card-banner"><i class="bi bi-heart-pulse"></i></div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge custom-badge-soft-team mb-2 align-self-start">Tim</span>
+              <h3 class="card-title h5">ImunKu — Jadwal Imunisasi Anak</h3>
+              <p class="card-text project-desc">Proyek UI/UX menjawab kesenjangan imunisasi anak di Indonesia, membantu orang tua memantau jadwal.</p>
+              <ul class="chip-list list-unstyled d-flex flex-wrap gap-1 mb-3">
+                <li class="badge custom-badge">Figma</li><li class="badge custom-badge">UI/UX Research</li>
+              </ul>
+              <p class="project-role small mb-3">Peran: Frontend Developer</p>
+              <div class="mt-auto d-flex gap-2">
+                <button type="button" class="btn custom-btn-outline btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#modalImunku">Detail</button>
+                <a class="btn custom-btn-primary btn-sm flex-fill" href="https://docs.google.com/presentation/d/1Vpy3QqET7D5S597ue5ME2U2KAjtlWCx2/edit?usp=sharing" target="_blank" rel="noopener">Lihat Proyek</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col">
+          <article class="card h-100 project-card" data-accent="coral">
+            <div class="card-banner"><i class="bi bi-hospital"></i></div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge custom-badge-soft-team mb-2 align-self-start">Tim</span>
+              <h3 class="card-title h5">Del Clinic Information System</h3>
+              <p class="card-text project-desc">Analisis dan perancangan sistem klinik berbasis web: antrean, rekam medis digital, notifikasi otomatis.</p>
+              <ul class="chip-list list-unstyled d-flex flex-wrap gap-1 mb-3">
+                <li class="badge custom-badge">Use Case</li><li class="badge custom-badge">BPMN</li>
+              </ul>
+              <p class="project-role small mb-3">Peran: System Analyst</p>
+              <div class="mt-auto d-flex gap-2">
+                <button type="button" class="btn custom-btn-outline btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#modalClinic">Detail</button>
+                <a class="btn custom-btn-primary btn-sm flex-fill" href="https://drive.google.com/file/d/11-6qNihtp7jCQ_Js6w7Ap246YDLHymWr/view?usp=sharing" target="_blank" rel="noopener">Lihat Proyek</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="col">
+          <article class="card h-100 project-card" data-accent="coral">
+            <div class="card-banner"><i class="bi bi-mortarboard"></i></div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge custom-badge-soft-team mb-2 align-self-start">Berpasangan</span>
+              <h3 class="card-title h5">Academic Record Management</h3>
+              <p class="card-text project-desc">Pemrograman berpasangan OOP: generator transkrip kronologis dan penghitungan IPK.</p>
+              <ul class="chip-list list-unstyled d-flex flex-wrap gap-1 mb-3">
+                <li class="badge custom-badge">Java</li><li class="badge custom-badge">OOP</li>
+              </ul>
+              <p class="project-role small mb-3">Peran: Class Design &amp; Logic</p>
+              <div class="mt-auto d-flex gap-2">
+                <button type="button" class="btn custom-btn-outline btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#modalAcademic">Detail</button>
+                <a class="btn custom-btn-primary btn-sm flex-fill" href="https://github.com/Arthasiregar/2324-ge-t08-transcript-Arthasiregar" target="_blank" rel="noopener">Lihat Proyek</a>
+              </div>
+            </div>
+          </article>
+        </div>
 
       </div>
 
-      <div class="project-column">
-        <h3>Proyek Tim</h3>
-
-        <article class="project-card">
-          <h4>ImunKu - Aplikasi Jadwal Imunisasi Anak</h4>
-          <p class="project-desc">Sebuah proyek UI/UX yang menjawab masalah kesenjangan imunisasi anak di Indonesia, membantu orang tua memantau jadwal serta memantau tumbuh kembang anak. Proyek kelompok (5 anggota) — peran saya mencakup riset pengguna, sintesis *HMW* (*How Might We*), penyusunan panduan gaya UI, dan pembuatan prototipe *high-fidelity* di Figma, yang divalidasi dengan tingkat keberhasilan tugas sebesar 95,8%.</p>
-          <ul class="chip-list">
-            <li>Figma</li><li>UI/UX Research</li><li>Prototyping</li>
-          </ul>
-          <p class="project-role">Peran: Frontend Developer</p>
-          <a class="view-link" href="https://docs.google.com/presentation/d/1Vpy3QqET7D5S597ue5ME2U2KAjtlWCx2/edit?usp=sharing" target="_blank" rel="noopener">Lihat Proyek &rarr;</a>
-        </article>
-
-        <article class="project-card">
-          <h4>Del Clinic Information System</h4>
-          <p class="project-desc">Proyek analisis dan perancangan sistem klinik berbasis web yang mencakup pendaftaran antrean, rekam medis digital, dan notifikasi otomatis untuk izin sakit.</p>
-          <ul class="chip-list">
-            <li>Use Case Scenario &amp; Diagrams</li><li>BPMN Modelling</li>
-          </ul>
-          <p class="project-role">Peran: System Analys</p>
-          <a class="view-link" href="https://drive.google.com/file/d/11-6qNihtp7jCQ_Js6w7Ap246YDLHymWr/view?usp=sharing" target="_blank" rel="noopener">Lihat Proyek &rarr;</a>
-        </article>
-
-        <article class="project-card">
-          <h4>Academic Record Management</h4>
-          <p class="project-desc">Proyek pemrograman berpasangan OOP yang memperluas simulator akademik dengan generator transkrip yang menampilkan riwayat kursus secara kronologis dan menangani kursus berulang dalam penghitungan IPK. Peran saya meliputi desain struktur kelas dan logika pengurutan/pemfilteran — divalidasi dengan hasil penilaian otomatis 100/100</p>
-          <ul class="chip-list">
-            <li>Java</li><li>OOP</li>
-          </ul>
-          <p class="project-role">Peran: OOP Developer - Class Design &amp; Logic</p>
-          <a class="view-link" href="https://github.com/Arthasiregar/2324-ge-t08-transcript-Arthasiregar" target="_blank" rel="noopener">Lihat Proyek &rarr;</a>
-        </article>
+      <!-- Recap table (dipertahankan dari Minggu 2) -->
+      <div class="table-responsive mt-5">
+        <table class="table recap-table">
+          <caption>Rekapitulasi Proyek &amp; Matakuliah — diperbarui per Semester Ganjil 2026/2027</caption>
+          <thead>
+            <tr>
+              <th scope="col">Tahun</th>
+              <th scope="col">Nama Proyek / Matakuliah</th>
+              <th scope="col">Kategori</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2026</td><td>ImunKu — Jadwal Imunisasi Anak</td><td>Proyek Kelompok</td><td><span class="badge status-done">Selesai</span></td></tr>
+            <tr><td>2026</td><td>Del Clinic Information System</td><td>Proyek Kelompok</td><td><span class="badge status-done">Selesai</span></td></tr>
+            <tr><td>2026</td><td>Academic Record Management</td><td>Proyek Berpasangan</td><td><span class="badge status-done">Selesai</span></td></tr>
+            <tr><td>2026</td><td>Sistem Rekomendasi Rute Evakuasi Tsunami — Banda Aceh</td><td>Proyek Kelompok</td><td><span class="badge status-progress">Berjalan</span></td></tr>
+            <tr><td>2026</td><td>Sistem Penitipan Paket Mahasiswa (RM Anugrah)</td><td>Proyek Kelompok</td><td><span class="badge status-progress">Berjalan</span></td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="4">Total 5 proyek/matakuliah tercatat &mdash; 3 selesai, 2 masih berjalan.</td></tr>
+          </tfoot>
+        </table>
       </div>
     </div>
-
-    <table class="recap-table">
-      <caption>Rekapitulasi Proyek &amp; Matakuliah — diperbarui per Semester Genap 2026/2027</caption>
-      <thead>
-        <tr>
-          <th scope="col">Tahun</th>
-          <th scope="col">Nama Proyek / Matakuliah</th>
-          <th scope="col">Kategori</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2026</td>
-          <td>Aplikasi Jadwal Imunisasi Anak</td>
-          <td>Proyek Kelompok</td>
-          <td><span class="status status-done">Selesai</span></td>
-        </tr>
-        <tr>
-          <td>2026</td>
-          <td>Del Clinic Information System</td>
-          <td>Proyek Kelompok</td>
-          <td><span class="status status-done">Selesai</span></td>
-        </tr>
-        <tr>
-          <td>2026</td>
-          <td>Academic Record Management</td>
-          <td>Proyek Berpasangan</td>
-          <td><span class="status status-done">Selesai</span></td>
-        </tr>
-        <tr>
-          <td>2026</td>
-          <td>Sistem Rekomendasi Rute Evakuasi Tsunami Berbasis Agen Pencarian Cerdas: Studi Kasus Kota Banda Aceh</td>
-          <td>Proyek Kelompok</td>
-          <td><span class="status status-progress">Berjalan</span></td>
-        </tr>
-        <tr>
-          <td>2026</td>
-          <td>Sistem Penitipan Paket Mahasiswa di Rumah Makan Anugrah</td>
-          <td>Proyek Kelompok</td>
-          <td><span class="status status-progress">Berjalan</span></td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4">Total 5 proyek/matakuliah tercatat &mdash; 3 selesai, 2 masih berjalan.</td>
-        </tr>
-      </tfoot>
-    </table>
   </section>
 
   <!-- ============ EXPERIENCE ============ -->
-  <section id="experience" class="section experience">
-    <div class="section-heading">
-      <h2>Pengalaman</h2>
-      <p>Riwayat keterlibatan organisasi dan kepanitiaan selama masa studi.</p>
-    </div>
+  <section id="experience" class="section-space">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Pengalaman</h2>
+        <p>Riwayat keterlibatan organisasi dan kepanitiaan selama masa studi.</p>
+      </div>
 
-    <ol class="timeline">
-      <li class="timeline-item">
-        <time datetime="2026-02">Feb 2026 &mdash; Sekarang</time>
-        <h3>Anggota, Divisi Data dan Informasi</h3>
-        <p class="timeline-org">Badan Eksekutif Mahasiswa (BEM), Departemen Pusat Dalam Kampus &middot; Institut Teknologi Del</p>
-        <p>Mengelola dan memelihara data organisasi, serta berkolaborasi dengan anggota tim untuk menjaga akurasi pengelolaan informasi dan komunikasi yang efektif.</p>
-      </li>
-      <li class="timeline-item">
-        <time datetime="2026">Agus 2025 &mdash; Sekarang</time>
-        <h3>Anggota</h3>
-        <p class="timeline-org">Del English Club (DEC) &middot; Institut Teknologi Del</p>
-        <p>Berpartisipasi dalam kegiatan pembelajaran bahasa Inggris dan diskusi kelompok, serta meningkatkan keterampilan komunikasi melalui sesi interaktif dan pembelajaran kolaboratif</p>
-      </li>
-    </ol>
+      <ol class="timeline list-unstyled">
+        <li class="timeline-item">
+          <time datetime="2026-02">Feb 2026 &mdash; Sekarang</time>
+          <h3 class="h5">Anggota, Divisi Data dan Informasi</h3>
+          <p class="timeline-org">Badan Eksekutif Mahasiswa (BEM) &middot; Institut Teknologi Del</p>
+          <p>Mengelola dan memelihara data organisasi, serta berkolaborasi menjaga akurasi informasi.</p>
+        </li>
+        <li class="timeline-item">
+          <time datetime="2025-08">Agu 2025 &mdash; Sekarang</time>
+          <h3 class="h5">Anggota</h3>
+          <p class="timeline-org">Del English Club (DEC) &middot; Institut Teknologi Del</p>
+          <p>Berpartisipasi dalam kegiatan pembelajaran bahasa Inggris dan diskusi kelompok.</p>
+        </li>
+      </ol>
+    </div>
   </section>
 
   <!-- ============ EDUCATION ============ -->
-  <section id="education" class="section education">
-    <div class="section-heading">
-      <h2>Pendidikan</h2>
-    </div>
+  <section id="education" class="section-space bg-projects">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Pendidikan</h2>
+      </div>
 
-    <div class="education-grid">
-      <article class="education-card">
-        <h3>Institut Teknologi Del</h3>
-        <p class="edu-meta">S1 Sistem Informasi &middot; Agu 2024 &ndash; Sekarang</p>
-        <p>Menekuni Sistem Informasi dengan minat kuat pada rekayasa perangkat lunak, analisis sistem, dan solusi digital. Terus mengembangkan kemampuan teknis dan analitis melalui proyek akademik, pembelajaran kolaboratif, dan keterlibatan organisasi.</p>
-      </article>
-
-      <article class="education-card">
-        <h3>SMA Cahaya Medan</h3>
-        <p class="edu-meta">Natural Sciences &middot; Jul 2021 &ndash; Apr 2024</p>
-        <p>Menempuh pendidikan di jurusan Ilmu Pengetahuan Alam (IPA), yang memperkuat kemampuan berpikir analitis dan pemecahan masalah melalui mata pelajaran matematika dan sains. Di luar kegiatan akademik, aktif berpartisipasi dalam klub tari sekolah serta mewakili sekolah dalam berbagai kompetisi tari..</p>
-      </article>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <article class="card education-card h-100">
+            <div class="card-body">
+              <h3 class="h5">Institut Teknologi Del</h3>
+              <p class="edu-meta">S1 Sistem Informasi &middot; Agu 2024 &ndash; Sekarang</p>
+              <p>Menekuni Sistem Informasi dengan minat kuat pada rekayasa perangkat lunak, analisis sistem, dan solusi digital.</p>
+            </div>
+          </article>
+        </div>
+        <div class="col-md-6">
+          <article class="card education-card h-100">
+            <div class="card-body">
+              <h3 class="h5">SMA Cahaya Medan</h3>
+              <p class="edu-meta">Natural Sciences &middot; Jul 2021 &ndash; Apr 2024</p>
+              <p>Menempuh jurusan IPA yang memperkuat kemampuan analitis, sambil aktif di klub tari sekolah.</p>
+            </div>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section id="contact" class="section contact">
-    <div class="section-heading">
-      <h2>Hubungi Saya</h2>
-      <p>Terbuka untuk diskusi kolaborasi, magang, maupun sekadar menyapa.</p>
-    </div>
-
-    <div class="contact-grid">
-      <div class="contact-info">
-        <ul class="contact-list">
-          <li>
-            <span class="contact-label">Email</span>
-            <a href="mailto:arthasiregar10@gmail.com">arthasiregar10@gmail.com</a>
-          </li>
-          <li>
-            <span class="contact-label">Telepon / WhatsApp</span>
-            <a href="tel:+6287863116903">+62 878-6311-6903</a>
-          </li>
-        </ul>
-
-        <h3>Media Sosial</h3>
-        <ul class="social-list">
-          <li><a href="https://github.com/Arthasiregar" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://linkedin.com/in/artha-siregar" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://instagram.com/arthaliebe_" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://tiktok.com/@artha.liebe" target="_blank" rel="noopener">TikTok</a></li>
-        </ul>
+  <section id="contact" class="section-space">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Hubungi Saya</h2>
+        <p>Terbuka untuk diskusi kolaborasi, magang, maupun sekadar menyapa.</p>
       </div>
 
-      <form class="contact-form" id="contactForm" action="mailto:arthasiregar10@gmail.com" method="POST" enctype="text/plain">
-        <h3 class="form-title">Kirim Pesan</h3>
+      <div class="row g-5">
+        <div class="col-lg-5">
+          <ul class="contact-list list-unstyled mb-4">
+            <li class="mb-3"><i class="bi bi-envelope-fill me-2"></i><a href="mailto:arthasiregar10@gmail.com">arthasiregar10@gmail.com</a></li>
+            <li><i class="bi bi-telephone-fill me-2"></i><a href="tel:+6287863116903">+62 878-6311-6903</a></li>
+          </ul>
+          <h3 class="h6">Media Sosial</h3>
+          <ul class="social-list list-unstyled d-flex flex-wrap gap-2">
+            <li><a class="btn custom-btn-ghost btn-sm" href="https://github.com/Arthasiregar" target="_blank" rel="noopener"><i class="bi bi-github"></i> GitHub</a></li>
+            <li><a class="btn custom-btn-ghost btn-sm" href="https://linkedin.com/in/artha-siregar" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+            <li><a class="btn custom-btn-ghost btn-sm" href="https://instagram.com/arthaliebe_" target="_blank" rel="noopener"><i class="bi bi-instagram"></i> Instagram</a></li>
+            <li><a class="btn custom-btn-ghost btn-sm" href="https://tiktok.com/@artha.liebe" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i> TikTok</a></li>
+          </ul>
+        </div>
 
-        <fieldset class="form-fieldset">
-          <legend>Informasi Kontak</legend>
+        <div class="col-lg-7">
+          <form class="contact-form needs-validation" id="contactForm" action="mailto:arthasiregar10@gmail.com" method="POST" enctype="text/plain" novalidate>
 
-          <div class="form-group">
-            <label for="nama">Nama Lengkap <span class="req">*</span></label>
-            <input type="text" id="nama" name="nama" required placeholder="Nama Anda">
-          </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Anda" required>
+              <label for="nama">Nama Lengkap *</label>
+              <div class="invalid-feedback">Nama wajib diisi.</div>
+            </div>
 
-          <div class="form-group">
-            <label for="email">Email <span class="req">*</span></label>
-            <input type="email" id="email" name="email" required placeholder="nama@email.com">
-          </div>
+            <div class="input-group mb-3 has-validation">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <div class="form-floating">
+                <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" required>
+                <label for="email">Email *</label>
+                <div class="invalid-feedback">Masukkan alamat email yang valid.</div>
+              </div>
+            </div>
 
-          <div class="form-group">
-            <label for="telepon">Nomor WhatsApp</label>
-            <input type="tel" id="telepon" name="telepon" placeholder="08xxxxxxxxxx">
-          </div>
-        </fieldset>
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-whatsapp"></i></span>
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="telepon" name="telepon" placeholder="08xxxxxxxxxx">
+                <label for="telepon">Nomor WhatsApp</label>
+              </div>
+            </div>
 
-        <fieldset class="form-fieldset">
-          <legend>Detail Permintaan</legend>
+            <div class="form-floating mb-3">
+              <select class="form-select" id="kategori" name="kategori">
+                <option value="kolaborasi">Kolaborasi Proyek</option>
+                <option value="magang">Freelance / Magang</option>
+                <option value="diskusi">Diskusi Teknis</option>
+                <option value="lainnya">Lainnya</option>
+              </select>
+              <label for="kategori">Kategori Kebutuhan</label>
+            </div>
 
-          <div class="form-group">
-            <label for="kategori">Kategori Kebutuhan</label>
-            <select id="kategori" name="kategori">
-              <option value="kolaborasi">Kolaborasi Proyek</option>
-              <option value="magang">Freelance / Magang</option>
-              <option value="diskusi">Diskusi Teknis</option>
-              <option value="lainnya">Lainnya</option>
-            </select>
-          </div>
+            <fieldset class="mb-3">
+              <legend class="h6">Preferensi Kontak Balasan</legend>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="preferensi" id="prefEmail" value="email" checked>
+                <label class="form-check-label" for="prefEmail">Email</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="preferensi" id="prefWA" value="whatsapp">
+                <label class="form-check-label" for="prefWA">WhatsApp</label>
+              </div>
+            </fieldset>
 
-          <div class="form-group">
-            <label for="durasi">Perkiraan Durasi Kolaborasi (minggu)</label>
-            <input type="number" id="durasi" name="durasi" min="1" max="52" placeholder="cth. 4">
-          </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" id="pesan" name="pesan" placeholder="Tuliskan pesan Anda..." style="height: 110px" required></textarea>
+              <label for="pesan">Pesan *</label>
+              <div class="invalid-feedback">Tuliskan pesan Anda terlebih dahulu.</div>
+            </div>
 
-          <fieldset class="form-subfieldset">
-            <legend>Preferensi Kontak Balasan</legend>
-            <label class="radio-label"><input type="radio" name="preferensi" value="email" checked> Email</label>
-            <label class="radio-label"><input type="radio" name="preferensi" value="whatsapp"> WhatsApp</label>
-          </fieldset>
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="setuju" name="setuju" required>
+              <label class="form-check-label" for="setuju">Saya setuju untuk dihubungi kembali terkait pesan ini *</label>
+              <div class="invalid-feedback">Centang kotak ini untuk melanjutkan.</div>
+            </div>
 
-          <div class="form-group">
-            <label for="pesan">Pesan <span class="req">*</span></label>
-            <textarea id="pesan" name="pesan" rows="4" required placeholder="Tuliskan pesan Anda..."></textarea>
-          </div>
-
-          <div class="form-group checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" id="setuju" name="setuju" required>
-              Saya setuju untuk dihubungi kembali terkait pesan ini <span class="req">*</span>
-            </label>
-          </div>
-        </fieldset>
-
-        <button type="submit" class="btn btn-primary btn-submit">Kirim Pesan</button>
-        <p class="form-note">Tombol ini akan membuka aplikasi email Anda dengan pesan sudah terisi ke arthasiregar10@gmail.com.</p>
-      </form>
+            <button type="submit" class="btn custom-btn-primary w-100">Kirim Pesan</button>
+            <p class="form-note">Tombol ini akan membuka aplikasi email Anda dengan pesan sudah terisi.</p>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div>
-      <a href="#top" class="logo">Artha Liebe<span>.</span></a>
-      <p>Mahasiswa Sistem Informasi, Institut Teknologi Del.</p>
+<!-- ============ MODALS DETAIL PROYEK ============ -->
+<div class="modal fade" id="modalPortofolio" tabindex="-1" aria-labelledby="modalPortofolioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h3 class="modal-title h5" id="modalPortofolioLabel">Portofolio Pribadi Accessible</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <p>Halaman single-page ini sendiri: dibangun bertahap dari HTML5 semantik murni (Minggu 2) menjadi terintegrasi Bootstrap 5 (Minggu 3), dengan aksesibilitas sebagai perhatian utama di setiap tahap.</p>
+        <p class="mb-0"><strong>Tools:</strong> HTML5, CSS3, Bootstrap 5, Git &amp; GitHub Pages</p>
+      </div>
+      <div class="modal-footer"><a href="https://arthasiregar.github.io/ppw-2026-week2-12S24010/" target="_blank" rel="noopener" class="btn custom-btn-primary">Buka Live Demo</a></div>
     </div>
-
-    <nav aria-label="Navigasi footer">
-      <ul class="footer-nav">
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#projects">Proyek</a></li>
-        <li><a href="#contact">Kontak</a></li>
-        <li><a href="assets/CV_Artha_Siregar.pdf" target="_blank" rel="noopener">CV</a></li>
-      </ul>
-    </nav>
-
-    <ul class="social-list footer-social">
-      <li><a href="https://github.com/Arthasiregar" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="https://linkedin.com/in/artha-siregar" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="https://instagram.com/arthaliebe_" target="_blank" rel="noopener">Instagram</a></li>
-    </ul>
   </div>
+</div>
 
-  <div class="footer-bottom">
-    <p>&copy; 2026 Artha Liebe Siregar. Dibuat untuk tugas mandiri Pemrograman dan Pengujian Web (12S3101).</p>
-    <a href="#top" class="back-to-top" aria-label="Kembali ke atas">&uarr;</a>
+<div class="modal fade" id="modalExpense" tabindex="-1" aria-labelledby="modalExpenseLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h3 class="modal-title h5" id="modalExpenseLabel">Expense &amp; Budget Visualizer</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <p>Aplikasi berbasis web untuk membantu pengguna melacak pengeluaran harian dan memvisualisasikan anggaran mereka dalam bentuk grafik sederhana.</p>
+        <p class="mb-0"><strong>Tools:</strong> HTML, CSS, JavaScript</p>
+      </div>
+      <div class="modal-footer"><a href="https://github.com/Arthasiregar/CodingCamp-8June26-arthaliebesiregar" target="_blank" rel="noopener" class="btn custom-btn-primary">Lihat Kode</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalImunku" tabindex="-1" aria-labelledby="modalImunkuLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h3 class="modal-title h5" id="modalImunkuLabel">ImunKu — Jadwal Imunisasi Anak</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <p>Proyek UI/UX yang menjawab masalah kesenjangan imunisasi anak di Indonesia. Proyek kelompok (5 anggota) — peran saya mencakup riset pengguna, sintesis HMW, penyusunan panduan gaya UI, dan prototipe high-fidelity di Figma, divalidasi dengan tingkat keberhasilan tugas 95,8%.</p>
+        <p class="mb-0"><strong>Tools:</strong> Figma, UI/UX Research, Prototyping</p>
+      </div>
+      <div class="modal-footer"><a href="https://docs.google.com/presentation/d/1Vpy3QqET7D5S597ue5ME2U2KAjtlWCx2/edit?usp=sharing" target="_blank" rel="noopener" class="btn custom-btn-primary">Lihat Dokumen</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalClinic" tabindex="-1" aria-labelledby="modalClinicLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h3 class="modal-title h5" id="modalClinicLabel">Del Clinic Information System</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <p>Proyek analisis dan perancangan sistem klinik berbasis web mencakup pendaftaran antrean, rekam medis digital, dan notifikasi otomatis izin sakit. Proyek kelompok (5 anggota) — peran saya fokus pada Use Case Scenario, Use Case Diagram, dan pemodelan BPMN.</p>
+        <p class="mb-0"><strong>Tools:</strong> Use Case Diagrams, BPMN Modelling</p>
+      </div>
+      <div class="modal-footer"><a href="https://drive.google.com/file/d/11-6qNihtp7jCQ_Js6w7Ap246YDLHymWr/view?usp=sharing" target="_blank" rel="noopener" class="btn custom-btn-primary">Lihat Dokumen</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalAcademic" tabindex="-1" aria-labelledby="modalAcademicLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h3 class="modal-title h5" id="modalAcademicLabel">Academic Record Management</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <p>Proyek pemrograman berpasangan (pair programming) OOP yang memperluas simulator akademik dengan generator transkrip kronologis dan penanganan kursus berulang dalam penghitungan IPK. Divalidasi dengan hasil penilaian otomatis 100/100.</p>
+        <p class="mb-0"><strong>Tools:</strong> Java, OOP</p>
+      </div>
+      <div class="modal-footer"><a href="https://github.com/Arthasiregar/2324-ge-t08-transcript-Arthasiregar" target="_blank" rel="noopener" class="btn custom-btn-primary">Lihat Kode</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="custom-footer">
+  <div class="container py-5">
+    <div class="row gy-4">
+      <div class="col-md-4">
+        <a href="#top" class="logo text-white">Artha Liebe<span>.</span></a>
+        <p class="mt-2 mb-0 opacity-75">Mahasiswa Sistem Informasi, Institut Teknologi Del.</p>
+      </div>
+      <div class="col-md-4">
+        <ul class="list-unstyled">
+          <li><a href="#about">Tentang</a></li>
+          <li><a href="#projects">Proyek</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 d-flex flex-wrap gap-2 align-content-start">
+        <a class="btn custom-btn-ghost btn-sm" href="https://github.com/Arthasiregar" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+        <a class="btn custom-btn-ghost btn-sm" href="https://linkedin.com/in/artha-siregar" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+        <a class="btn custom-btn-ghost btn-sm" href="https://instagram.com/arthaliebe_" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+    <hr class="border-light opacity-25 my-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <p class="mb-0 small opacity-75">&copy; 2026 Artha Liebe Siregar &middot; 12S3101 Pemrograman dan Pengujian Web</p>
+      <a href="#top" class="btn custom-btn-ghost btn-sm rounded-circle"><i class="bi bi-arrow-up"></i></a>
+    </div>
   </div>
 </footer>
 
+<!-- Bootstrap 5.3 JS Bundle (wajib untuk navbar collapse & modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Skrip validasi form standar Bootstrap -->
+<script>
+(() => {
+  'use strict'
+  const forms = document.querySelectorAll('.needs-validation')
+  Array.from(forms).forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
 </body>
 </html>
