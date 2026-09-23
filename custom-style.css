@@ -59,6 +59,8 @@ a { text-decoration: none; }
 .skip-link:focus { left: 0; }
 
 .section-space { padding-block: 72px; }
+.hero-section { padding-bottom: 32px; }
+#skills { padding-top: 32px; }
 .bg-projects { background: var(--pink-soft); }
 
 .section-heading { margin-bottom: 32px; max-width: 640px; }
@@ -122,6 +124,16 @@ a { text-decoration: none; }
   color: var(--mauve);
 }
 .custom-btn-outline:hover { background-color: var(--mauve); color: var(--white); }
+/* Di dalam navbar (background mauve), tombol outline mauve jadi tak
+   kelihatan — timpa jadi putih supaya kontras dengan latar navbar */
+.custom-navbar .custom-btn-outline {
+  border-color: var(--white);
+  color: var(--white);
+}
+.custom-navbar .custom-btn-outline:hover {
+  background-color: var(--white);
+  color: var(--mauve);
+}
 
 .custom-btn-ghost {
   background-color: var(--pink-soft);
