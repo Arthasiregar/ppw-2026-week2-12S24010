@@ -133,7 +133,7 @@ a { text-decoration: none; }
 .custom-navbar .custom-btn-outline:hover {
   background-color: var(--white);
   color: var(--mauve);
-}
+} 
 
 .custom-btn-ghost {
   background-color: var(--pink-soft);
