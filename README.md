@@ -1,5 +1,6 @@
 # Portofolio Pribadi — Artha Liebe Siregar
-**NIM:** 12S24010 &middot; **Kelas:** Sistem Informasi &middot; **Mata Kuliah:** 12S3101 Pemrograman dan Pengujian Web
+**NIM:** 12S24010 &middot; **Kelas:** 13SI1
+ **Mata Kuliah:** 12S3101 Pemrograman dan Pengujian Web
 
 🔗 **Live demo:** _tambahkan tautan GitHub Pages terbaru di sini setelah deployment branch `week3-bootstrap`_
 🔗 **Repositori:** `ppw-2026-week2-12S24010` (branch `week3-bootstrap`)
