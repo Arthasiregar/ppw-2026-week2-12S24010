@@ -3,7 +3,7 @@
  **Mata Kuliah:** 12S3101 Pemrograman dan Pengujian Web
 
 🔗 **Live demo:** https://arthasiregar.github.io/ppw-2026-week2-12S24010/
-🔗 **Repositori:** `ppw-2026-week2-12S24010` (branch `week3-bootstrap`)
+🔗 **Repositori:** https://github.com/Arthasiregar/ppw-2026-week2-12S24010/tree/week3-bootstrap
 
 ## Ringkasan Pembaruan Minggu 3
 
