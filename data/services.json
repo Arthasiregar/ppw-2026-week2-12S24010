@@ -1,0 +1,29 @@
+[
+  {
+    "id": "kolaborasi",
+    "name": "Kolaborasi Proyek",
+    "tagline": "Gabung bareng kerjakan proyek nyata",
+    "description": "Cocok untuk tugas kelompok, proyek open source, atau eksperimen ide bersama.",
+    "price": "Gratis / Nego",
+    "features": ["Front end development", "Review & perbaikan UI existing", "Pair programming"],
+    "highlight": false
+  },
+  {
+    "id": "magang",
+    "name": "Freelance / Magang",
+    "tagline": "Bantuan pengembangan front end lepas",
+    "description": "Untuk kebutuhan membangun atau memperbaiki halaman web dalam jangka waktu tertentu.",
+    "price": "Nego per proyek",
+    "features": ["Landing page & portofolio", "Integrasi Bootstrap/CSS custom", "Revisi sesuai brief"],
+    "highlight": true
+  },
+  {
+    "id": "diskusi",
+    "name": "Diskusi Teknis",
+    "tagline": "Ngobrol soal HTML, CSS, atau arsitektur web",
+    "description": "Sesi singkat untuk bertukar pikiran soal studi kasus, debugging, atau belajar bareng.",
+    "price": "Gratis",
+    "features": ["Code review singkat", "Sharing referensi belajar", "Tanya jawab santai"],
+    "highlight": false
+  }
+]

@@ -1,0 +1,58 @@
+{
+  "name": "Artha Liebe Siregar",
+  "role": "Mahasiswa Sistem Informasi · Calon iOS Developer & Full Stack Developer",
+  "bio": "Saya mahasiswa Program Studi Sistem Informasi di Institut Teknologi Del dengan minat besar mendalami sisi front end pada pengembangan full stack. Saya senang membangun antarmuka yang rapi, terstruktur, dan nyaman digunakan.",
+  "facts": [
+    { "label": "Institusi", "value": "Institut Teknologi Del" },
+    { "label": "Program Studi", "value": "S1 Sistem Informasi" },
+    { "label": "Fokus", "value": "Front End" },
+    { "label": "Status", "value": "Terbuka untuk kolaborasi" }
+  ],
+  "techStack": ["Swift & SwiftUI", "HTML5", "CSS3 & Bootstrap", "JavaScript", "Git & GitHub", "Figma", "MySQL", "Python"],
+  "canDo": [
+    "Merancang dan membangun antarmuka web yang responsif serta accessible",
+    "Mengembangkan aplikasi iOS sederhana dengan Swift & SwiftUI",
+    "Menyusun halaman semantik menggunakan HTML5 & CSS framework modern",
+    "Mengelola alur kerja tim dan versi kode dengan Git & GitHub",
+    "Merancang tampilan antarmuka (UI) sederhana di Figma"
+  ],
+  "contact": {
+    "email": "arthasiregar10@gmail.com",
+    "phone": "+6287863116903",
+    "phoneDisplay": "+62 878-6311-6903"
+  },
+  "socials": [
+    { "name": "GitHub", "icon": "bi-github", "url": "https://github.com/Arthasiregar" },
+    { "name": "LinkedIn", "icon": "bi-linkedin", "url": "https://linkedin.com/in/artha-siregar" },
+    { "name": "Instagram", "icon": "bi-instagram", "url": "https://instagram.com/arthaliebe_" },
+    { "name": "TikTok", "icon": "bi-tiktok", "url": "https://tiktok.com/@artha.liebe" }
+  ],
+  "education": [
+    {
+      "institution": "Institut Teknologi Del",
+      "meta": "S1 Sistem Informasi · Agu 2024 – Sekarang",
+      "description": "Menekuni Sistem Informasi dengan minat kuat pada rekayasa perangkat lunak, analisis sistem, dan solusi digital."
+    },
+    {
+      "institution": "SMA Cahaya Medan",
+      "meta": "Natural Sciences · Jul 2021 – Apr 2024",
+      "description": "Menempuh jurusan IPA yang memperkuat kemampuan analitis, sambil aktif di klub tari sekolah."
+    }
+  ],
+  "experience": [
+    {
+      "date": "Feb 2026 — Sekarang",
+      "datetime": "2026-02",
+      "title": "Anggota, Divisi Data dan Informasi",
+      "org": "Badan Eksekutif Mahasiswa (BEM) · Institut Teknologi Del",
+      "description": "Mengelola dan memelihara data organisasi, serta berkolaborasi menjaga akurasi informasi."
+    },
+    {
+      "date": "Agu 2025 — Sekarang",
+      "datetime": "2025-08",
+      "title": "Anggota",
+      "org": "Del English Club (DEC) · Institut Teknologi Del",
+      "description": "Berpartisipasi dalam kegiatan pembelajaran bahasa Inggris dan diskusi kelompok."
+    }
+  ]
+}
