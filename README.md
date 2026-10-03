@@ -122,6 +122,37 @@ Proyek ini memakai **CSR di atas static hosting** yang cocok dengan pola Jamstac
 
 ---
 
+## 3A. Desain Data Layer JSON
+
+Seluruh konten berada di `data/` dan dibaca lewat `ApiService` (`fetch` + `async/await`, error dilempar dengan pesan HTTP yang jelas).
+
+| Berkas | Isi | Jumlah |
+|---|---|---|
+| `profile.json` | `name`, `role`, `bio`, `facts[]`, `techStack[]`, `canDo[]`, `contact`, `socials[]`, `education[]`, `experience[]` | 1 objek |
+| `projects.json` | `id`, `title`, `category`, `accent`, `icon`, `image`, `description`, `detail`, `tags[]`, `role`, `metric`, `year`, `status`, `link` | 5 proyek |
+| `services.json` | `id`, `name`, `tagline`, `description`, `price`, `features[]`, `highlight` | 3 paket layanan |
+
+Contoh satu entri `projects.json`:
+
+```json
+{
+  "id": "imunku",
+  "title": "ImunKu — Jadwal Imunisasi Anak",
+  "category": "Tim",
+  "accent": "coral",
+  "icon": "bi-heart-pulse",
+  "image": "assets/images/projects/imunku.png",
+  "tags": ["Figma", "UI/UX Research", "Prototyping"],
+  "role": "Frontend Developer",
+  "metric": "95.8% Success Rate",
+  "link": "https://docs.google.com/presentation/d/..."
+}
+```
+
+Nilai `category` (`Independen`, `Tim`, `Berpasangan`) dipakai langsung oleh tombol filter, dan `id` dipakai Universal Modal untuk menemukan proyek yang diklik.
+
+---
+
 ## 4. Struktur Berkas
 
 ```
@@ -137,8 +168,14 @@ ppw-2026-week2-12S24010/
 │   ├── api-service.js          # Data Access Layer (fetch GET/POST, error handling)
 │   └── app.js                  # Presentation Layer (render, filter, modal, form, toast)
 ├── assets/
-│   ├── images/photo-almetdel.jpg
+│   ├── images/
+│   │   ├── photo-almetdel.jpg
+│   │   └── projects/           # Thumbnail proyek (path relatif, sesuai CSP img-src 'self')
 │   └── CV_ARTHA_SIREGAR.pdf
+├── docs/                       # Screenshot waterfall DevTools (dan diagram C4 jika diekspor)
+│   ├── waterfall-cold.png
+│   ├── waterfall-warm.png
+│   └── network-form-post.png
 └── README.md
 ```
 
@@ -156,7 +193,8 @@ ppw-2026-week2-12S24010/
   - *Error*: alert merah jika JSON gagal dimuat
 - **Filter kategori** — Semua, Independen, Tim, Berpasangan.
 - **Universal Dynamic Modal** — satu modal, isi berubah sesuai ID proyek, dibuka lewat Bootstrap Modal API.
-- **Service Portal** — katalog layanan dari `services.json`.
+- **Service Portal** — katalog layanan dari `services.json`. Tombol "Pesan Layanan" mengisi kategori dan pesan di form secara otomatis, lalu menggulir halaman ke form kontak.
+- **Pemuatan data paralel** — profil, layanan, dan proyek dimuat bersamaan dengan `Promise.allSettled`, sehingga kegagalan satu berkas tidak menghentikan section lain.
 - **Form REST asinkron** — `preventDefault`, serialisasi ke JSON, `fetch` POST ke `https://httpbin.org/post`, tombol submit berubah menjadi status "Mengirim…", Toast sukses/gagal, lalu form direset.
 - **Persistensi lokal** — pesanan disimpan di `localStorage` dan ditampilkan lewat badge di bagian kontak.
 - **Aksesibilitas** — skip link, HTML semantik, label form, `aria-label`, `role="alert"`.
@@ -169,8 +207,10 @@ ppw-2026-week2-12S24010/
 ### Sanitasi DOM-based XSS
 Nilai dari JSON yang disisipkan ke DOM diperlakukan sebagai data tidak tepercaya:
 
-- Teks biasa memakai `textContent`.
-- Jika harus memakai `innerHTML` (template kartu dan modal), setiap nilai dinamis dilewatkan fungsi `escapeHTML()` terlebih dahulu.
+- Teks biasa (nama, peran, bio, judul modal, kontak) memakai `textContent`.
+- Jika harus memakai `innerHTML` (template kartu, modal, layanan, toast), setiap nilai dinamis dilewatkan fungsi `escapeHTML()` terlebih dahulu. Fungsi ini mengganti `& < > " '` sehingga aman dipakai pada isi elemen maupun nilai atribut HTML.
+- URL dari JSON (`link`, `url`) divalidasi lewat `safeUrl()`: hanya protokol `http` dan `https` yang diterima, nilai seperti `javascript:` diganti `#`.
+- Endpoint `httpbin.org` hanya mock REST untuk praktikum; data yang dikirim saat pengujian adalah data dummy.
 
 ### Content Security Policy
 
@@ -229,11 +269,28 @@ Tuliskan 3–5 kalimat tentang:
 3. Penyebab selisih Cold vs Warm Load.
 4. Dampak arsitektur CSR: urutan **waterfall** (HTML → CSS/JS → JSON → render) dan efeknya pada FCP.
 
+**Catatan strategi caching.** Berkas JSON diambil dengan `cache: 'no-cache'`, sehingga browser selalu memvalidasi ke server dan menerima 304 selama konten tidak berubah. Aset statis (CSS, JS, gambar) mengikuti `cache-control` dari GitHub Pages. Sesuaikan kalimat ini dengan status yang benar-benar tampil pada kolom Status hasil pengukuranmu.
+
+**Catatan pemuatan paralel.** Ketiga berkas JSON diminta bersamaan lewat `Promise.allSettled`, sehingga pada waterfall request-nya tidak berbentuk tangga.
+
+**Catatan tabel rekap.** Tabel rekap di bagian Proyek mencakup matakuliah yang masih berjalan dan belum dipublikasikan sebagai kartu, sehingga isinya tidak identik dengan `projects.json`.
+
 ### 7.4 Screenshot Waterfall
 
 | Cold Load | Warm Load |
 |---|---|
 | ![Waterfall Cold Load](docs/waterfall-cold.png) | ![Waterfall Warm Load](docs/waterfall-warm.png) |
+
+### 7.5 Pengiriman Form (Preflight CORS)
+
+Pengiriman form ke `httpbin.org` menghasilkan dua request: preflight `OPTIONS` (karena cross-origin dan `Content-Type: application/json`) diikuti `POST`.
+
+| Request | Status | Waktu |
+|---|---|---|
+| `OPTIONS /post` | … | … ms |
+| `POST /post` | … | … ms |
+
+![Request form di tab Network](docs/network-form-post.png)
 
 ---
 
