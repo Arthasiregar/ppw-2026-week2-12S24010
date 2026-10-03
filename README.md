@@ -1,70 +1,278 @@
-# Portofolio Pribadi — Artha Liebe Siregar
-**NIM:** 12S24010 &middot; **Kelas:** 13SI1
- **Mata Kuliah:** 12S3101 Pemrograman dan Pengujian Web
+# Portofolio & Service Portal — Artha Liebe Siregar
 
-🔗 **Live demo:** https://arthasiregar.github.io/ppw-2026-week2-12S24010/
-🔗 **Repositori:** https://github.com/Arthasiregar/ppw-2026-week2-12S24010/tree/week3-bootstrap
+**NIM:** 12S24010 · **Kelas:** 13SI1 · **Mata Kuliah:** 12S3101 Pemrograman dan Pengujian Web
+**Tugas:** Minggu 4 — Refactoring Arsitektural: Decoupled Multi-Tier, Dynamic Client-Side Rendering (CSR), dan Network Performance Profiling
 
-## Ringkasan Pembaruan Minggu 3
+| | |
+|---|---|
+| 🔗 **Live demo** | https://arthasiregar.github.io/ppw-2026-week2-12S24010/ |
+| 🔗 **Repositori** | https://github.com/Arthasiregar/ppw-2026-week2-12S24010/tree/week4-architecture |
+| 🌿 **Branch** | `week4-architecture` |
 
-Melanjutkan portofolio Minggu 2 (HTML5 semantik + CSS murni), pada Minggu 3 proyek ini
-direfaktor menggunakan **Bootstrap 5.3** dan Custom CSS Overrides, tanpa mengubah struktur
-semantik HTML5 yang sudah ada.
+> Repositori ini adalah kelanjutan dari proyek Minggu 2 dan Minggu 3 (nama repositori `week2` dipertahankan agar riwayat commit dan URL GitHub Pages tetap sama). Seluruh pekerjaan Minggu 4 berada di branch `week4-architecture`.
 
-## Tabel Perbandingan: Sebelum vs Sesudah Integrasi Framework
+---
 
-| Aspek | Sebelum (Minggu 2) | Sesudah (Minggu 3) |
+## 1. Ringkasan Pembaruan Minggu 4
+
+Pada Minggu 3, portofolio dibangun dengan Bootstrap 5.3, tetapi seluruh konten (bio, keahlian, kartu proyek, modal, pengalaman, pendidikan, kontak) masih **hardcoded** di `index.html` (monolitik statis). Pada Minggu 4, `index.html` diubah menjadi **shell kosong**, dan seluruh konten diambil secara asinkron dari berkas JSON lalu dirakit di browser (Client-Side Rendering).
+
+Perubahan utama:
+
+- Data dipisah ke `data/profile.json`, `data/projects.json`, dan `data/services.json`.
+- Pemisahan kode menjadi **Data Access Layer** (`js/api-service.js`) dan **Presentation Layer** (`js/app.js`).
+- Pengambilan data memakai `fetch()` dengan `async/await` dan penanganan error defensif.
+- **4 UI State** pada bagian proyek: Loading, Success, Empty, Error.
+- **Filter kategori** instan (Semua / Independen / Tim / Berpasangan).
+- **Universal Dynamic Modal**: 1 modal untuk semua proyek (menggantikan 5 modal terpisah).
+- Section baru **Layanan** (Service Portal) dari `services.json`.
+- Form kontak dikirim lewat **fetch POST** (JSON) tanpa reload, dengan umpan balik **Toast**, dan riwayat pesanan disimpan di **localStorage**.
+- **Content Security Policy** (CSP) dan sanitasi masukan untuk mencegah DOM-based XSS.
+
+---
+
+## 2. Diagram Arsitektur — C4 Container Model
+
+```mermaid
+C4Container
+    title Container Diagram — Portofolio & Service Portal (Week 4)
+
+    Person(visitor, "Pengunjung", "Rekruter, dosen, atau calon kolaborator yang membuka portofolio")
+
+    System_Boundary(browser, "Browser Pengguna — Presentation Tier") {
+        Container(shell, "HTML Shell", "HTML5 + Bootstrap 5.3", "Kerangka halaman tanpa kartu hardcoded, berisi wadah kosong dan 1 modal universal")
+        Container(app, "app.js", "JavaScript ES6+", "Presentation Layer: render DOM, filter, UI states, modal, form, toast")
+        Container(api, "api-service.js", "JavaScript ES6+ (fetch)", "Data Access Layer: HTTP GET/POST, error handling")
+        ContainerDb(ls, "localStorage", "Web Storage API", "Riwayat pesanan layanan di sisi klien")
+    }
+
+    System_Boundary(static, "Static Hosting — Application/Data Tier (disimulasikan)") {
+        Container(pages, "Static Server", "GitHub Pages", "Menyajikan index.html, css/, js/, assets/")
+        ContainerDb(json, "JSON Providers", "data/*.json", "profile.json, projects.json, services.json sebagai mock RESTful data layer")
+    }
+
+    System_Ext(cdn, "CDN", "jsDelivr & Google Fonts: Bootstrap, Bootstrap Icons, font Fraunces dan Work Sans")
+    System_Ext(rest, "REST API (mock)", "httpbin.org/post: menerima payload JSON dari form")
+
+    Rel(visitor, shell, "Membuka halaman", "HTTPS")
+    Rel(shell, pages, "Meminta HTML, CSS, JS, gambar", "HTTPS GET")
+    Rel(shell, cdn, "Memuat framework, ikon, font", "HTTPS GET")
+    Rel(app, api, "Memanggil fungsi data", "JS module call")
+    Rel(api, json, "Mengambil data JSON", "fetch GET")
+    Rel(api, rest, "Mengirim pesanan layanan", "fetch POST (JSON)")
+    Rel(app, ls, "Menyimpan dan membaca pesanan", "Web Storage API")
+```
+
+> Jika diagram Mermaid tidak tampil di GitHub, ekspor lewat [mermaid.live](https://mermaid.live) sebagai gambar lalu simpan di `docs/c4-container.png`.
+
+### Pemetaan ke Arsitektur Multi-Tier
+
+| Tier | Komponen di proyek ini | Tanggung jawab |
 |---|---|---|
-| **CSS Framework** | CSS murni (`style.css`), tanpa framework | Bootstrap 5.3.3 CDN + Bootstrap Icons, di-override lewat `custom-style.css` yang dimuat setelah Bootstrap |
-| **JavaScript** | Tanpa JavaScript sama sekali | Menggunakan Bootstrap JS Bundle (untuk navbar collapse & modal) + skrip validasi form standar Bootstrap |
-| **Navigasi** | Menu horizontal statis, wrap manual di layar kecil | Navbar Bootstrap responsif dengan tombol hamburger (`navbar-toggler`) yang collapse/expand di layar ponsel |
-| **Tampilan Proyek** | 2 kolom statis (Independen/Tim) berisi kartu tanpa interaksi tambahan | Grid responsif `row-cols-1 row-cols-md-2 row-cols-lg-3` (5 kartu), tiap kartu terhubung ke **Modal Dialog** detail proyek |
-| **Formulir Kontak** | Label + input polos di atas tiap field | **Floating Labels** (`.form-floating`), **Input Group** berikon, serta umpan balik validasi visual (`.invalid-feedback`) |
-| **Tata Letak** | CSS Grid & Flexbox custom, breakpoint manual (900px/768px/480px) | Sistem grid 12-kolom Bootstrap (`container`, `row`, `col-*`) dikombinasikan dengan sedikit custom CSS untuk penyesuaian |
-| **Tema Warna** | 4 CSS variable (`--cream`, `--pink-soft`, `--pink-accent`, `--mauve`) | Variable dipertahankan dan ditambah (12+ variable total: radius, shadow, font, dst.), dipakai untuk menimpa warna default Bootstrap tanpa `!important` |
-| **Tabel Data** | Zebra sederhana lewat `:hover` saja | Ditambah `:nth-child(even)` untuk zebra striping permanen, bukan hanya saat hover |
+| **Presentation Tier** | `index.html`, `css/custom-style.css`, `js/app.js` | Antarmuka, responsivitas, interaksi, UI states |
+| **Application / API Logic Tier** | `js/api-service.js`, `httpbin.org/post` | Kontrak pengambilan dan pengiriman data, error handling, endpoint REST mock |
+| **Data Storage Tier** | `data/*.json` (sumber), `localStorage` (state sisi klien) | Penyimpanan data portofolio dan riwayat pesanan |
 
-## Fitur Utama
+### Narasi Separation of Concerns (SoC)
 
-- **Navbar responsif** — sticky-top, brand identity, hamburger toggle berfungsi penuh di mobile.
-- **Hero Section** — proporsional dengan CTA "Hubungi Saya" dan "Lihat Proyek".
-- **Grid Proyek & Modal** — 5 kartu proyek (row-cols responsif), masing-masing dengan tombol "Detail" yang membuka Modal Dialog berisi deskripsi lengkap, tools, dan tautan proyek.
-- **Formulir Kontak Modern** — Floating Labels, Input Group berikon, select kategori, radio preferensi kontak, checkbox persetujuan, dan validasi visual native + Bootstrap.
-- **Custom Theming** — 12+ CSS custom properties di `:root`, palet warna personal (bukan warna default Bootstrap), transisi mikro-interaksi pada kartu dan tombol.
-- **Advanced Selectors** — child combinator (`>`), adjacent sibling (`+`), `:is()`, `:nth-child()`, `:focus-within`, dan selector atribut (`[data-accent="..."]`) diterapkan pada konteks yang relevan, bukan sekadar demo.
+Pada Minggu 3, satu berkas `index.html` menanggung tiga tanggung jawab sekaligus: struktur, konten, dan perilaku. Mengubah satu judul proyek berarti mengedit markup di dua tempat (kartu dan modal), sehingga rawan tidak konsisten.
 
-## Spesifikasi Teknis
+Pada Minggu 4, tanggung jawab dipisah menjadi lapisan yang masing-masing punya satu alasan untuk berubah:
 
-- Struktur semantik HTML5 tetap utuh: `header`, `nav`, `main`, `section`, `article`, `footer`.
-- `custom-style.css` dimuat **setelah** `bootstrap.min.css` — semua override warna/komponen memanfaatkan urutan cascade, **tanpa satu pun `!important`**.
-- Minimal 6 tipe kontrol input pada form dipertahankan dari Minggu 2 (text, email, tel, select, radio, checkbox, textarea), sekarang dibungkus komponen Bootstrap modern.
-- Tabel rekap proyek (caption, thead, tbody, tfoot, scope) dipertahankan dari Minggu 2.
+1. **Data** (`data/*.json`) berubah ketika konten berubah. Menambah proyek cukup dengan menambah satu objek JSON, tanpa menyentuh HTML atau JavaScript.
+2. **Data Access Layer** (`api-service.js`) berubah ketika cara mengambil data berubah, misalnya endpoint pindah ke backend sungguhan. `app.js` tidak perlu diubah karena hanya memanggil fungsi `ApiService`.
+3. **Presentation Layer** (`app.js`) berubah ketika tampilan atau interaksi berubah.
+4. **Struktur dan gaya** (`index.html`, `custom-style.css`) hanya mengurus kerangka dan tema visual.
 
-## Palet Warna
+Manfaatnya: kode lebih mudah dirawat, data dan tampilan dapat diuji terpisah, dan satu sumber kebenaran (single source of truth) menghilangkan duplikasi antara kartu dan modal.
 
-| Warna | Hex | Peran |
+### Komparasi Paradigma Rendering
+
+| Parameter | SSR | CSR (proyek ini) | Jamstack |
+|---|---|---|---|
+| Perakitan DOM | Di server per request | Di browser via JavaScript | Saat build, lalu dihidrasi via API |
+| Beban server | Tinggi | Sangat rendah (hanya mengirim berkas statis dan JSON) | Minimal (disajikan CDN) |
+| TTFB | Menengah–lambat | Cepat (HTML shell kecil) | Sangat cepat |
+| Interaktivitas | Reload tiap navigasi | Mulus, filter dan modal instan | Mulus |
+| Hosting | Server aktif terus | Static hosting (GitHub Pages) | Static CDN + serverless/API |
+| Kelemahan | Beban server, reload | Konten kosong sebelum JS selesai; SEO lebih lemah | Perlu proses build |
+
+Proyek ini memakai **CSR di atas static hosting** yang cocok dengan pola Jamstack: HTML shell disajikan statis, data diambil dari JSON, dan form dikirim ke REST endpoint eksternal.
+
+---
+
+## 3. Tabel Perbandingan: Sebelum vs Sesudah Refactoring
+
+| Aspek | Sebelum (Minggu 3) | Sesudah (Minggu 4) |
 |---|---|---|
-| Cream | `#FFF5E4` | Dominan (60%) — latar belakang |
-| Pink Lembut | `#FADADD` | Sekunder (30%) — permukaan kartu & aksen lembut |
-| Pink Koral | `#FFB7B2` | Aksen (10%) — highlight, badge, banner |
-| Mauve | `#A26769` | Aksen (10%) — navbar, judul, tombol utama |
+| **Arsitektur** | Monolitik statis, semua konten di `index.html` | Decoupled multi-tier: shell HTML + JSON + Data Access Layer + Presentation Layer |
+| **Sumber data** | Hardcoded di HTML | `data/profile.json`, `data/projects.json`, `data/services.json` |
+| **Kartu proyek** | 5 kartu ditulis manual | Dirender dinamis dari `projects.json` (CSR) |
+| **Modal proyek** | 5 modal terpisah (`modalPortofolio`, `modalExpense`, `modalImunku`, `modalClinic`, `modalAcademic`) | 1 modal universal (`universalProjectModal`), isi diinjeksi berdasarkan ID proyek |
+| **UI State** | Tidak ada | Loading, Success, Empty, Error |
+| **Filter proyek** | Tidak ada | Filter kategori instan tanpa reload |
+| **Section Layanan** | Tidak ada | Ada, dari `services.json` |
+| **Form kontak** | `action="mailto:"` membuka aplikasi email | `fetch` POST berisi JSON ke REST endpoint, tanpa reload |
+| **Umpan balik form** | Validasi Bootstrap saja | Validasi, tombol loading, dan Toast |
+| **State klien** | Tidak ada | Riwayat pesanan di `localStorage` |
+| **JavaScript** | Skrip validasi inline | Modul terpisah `api-service.js` dan `app.js` |
+| **Keamanan** | Tanpa CSP | CSP via `<meta>`, sanitasi dengan `escapeHTML` / `textContent` |
+| **Struktur folder** | `index.html` + `custom-style.css` | `css/`, `js/`, `data/`, `assets/` |
+| **Menambah proyek** | Edit HTML di dua tempat (kartu + modal) | Tambah satu objek di `projects.json` |
 
-## Cara Menjalankan Secara Lokal
+---
 
-1. Clone repositori ini, checkout ke branch `week3-bootstrap`.
-2. Buka `index.html` langsung di browser, atau gunakan ekstensi **Live Server** di VS Code.
-3. Bootstrap CSS/JS dan Bootstrap Icons dimuat lewat CDN — pastikan ada koneksi internet saat membuka halaman.
-
-## Struktur Berkas
+## 4. Struktur Berkas
 
 ```
-├── index.html
-├── custom-style.css
+ppw-2026-week2-12S24010/
+├── index.html                  # Shell HTML5 + Bootstrap 5, tanpa kartu hardcoded
+├── css/
+│   └── custom-style.css        # Tema, CSS variables, override Bootstrap
+├── data/
+│   ├── profile.json            # Biodata, fakta singkat, keahlian, pengalaman, pendidikan, kontak
+│   ├── projects.json           # Koleksi proyek (metrics, tags, image, link)
+│   └── services.json           # Katalog paket layanan
+├── js/
+│   ├── api-service.js          # Data Access Layer (fetch GET/POST, error handling)
+│   └── app.js                  # Presentation Layer (render, filter, modal, form, toast)
 ├── assets/
 │   ├── images/photo-almetdel.jpg
-│   └── CV_Artha_Siregar.pdf
+│   └── CV_ARTHA_SIREGAR.pdf
 └── README.md
 ```
 
-Disusun oleh Artha Liebe Siregar untuk Mata Kuliah Pemrograman dan Pengujian Web (12S3101),
-Institut Teknologi Del.
+> Catatan: GitHub Pages membedakan huruf besar dan kecil pada nama berkas. `CV_ARTHA_SIREGAR.pdf` harus persis sama dengan yang dipanggil di `index.html`.
+
+---
+
+## 5. Fitur Utama
+
+- **Dynamic CSR** — hero, keahlian, proyek, layanan, pengalaman, pendidikan, dan kontak dirender dari JSON memakai `async/await`.
+- **4 UI State pada proyek**
+  - *Loading*: spinner "Memuat data proyek…"
+  - *Success*: grid kartu responsif (`row-cols-1 row-cols-md-2 row-cols-lg-3`)
+  - *Empty*: pesan jika kategori filter tidak berisi proyek
+  - *Error*: alert merah jika JSON gagal dimuat
+- **Filter kategori** — Semua, Independen, Tim, Berpasangan.
+- **Universal Dynamic Modal** — satu modal, isi berubah sesuai ID proyek, dibuka lewat Bootstrap Modal API.
+- **Service Portal** — katalog layanan dari `services.json`.
+- **Form REST asinkron** — `preventDefault`, serialisasi ke JSON, `fetch` POST ke `https://httpbin.org/post`, tombol submit berubah menjadi status "Mengirim…", Toast sukses/gagal, lalu form direset.
+- **Persistensi lokal** — pesanan disimpan di `localStorage` dan ditampilkan lewat badge di bagian kontak.
+- **Aksesibilitas** — skip link, HTML semantik, label form, `aria-label`, `role="alert"`.
+- **Tema** — palet cream, pink, koral, dan mauve melalui CSS custom properties, tanpa `!important`.
+
+---
+
+## 6. Keamanan Sisi Klien
+
+### Sanitasi DOM-based XSS
+Nilai dari JSON yang disisipkan ke DOM diperlakukan sebagai data tidak tepercaya:
+
+- Teks biasa memakai `textContent`.
+- Jika harus memakai `innerHTML` (template kartu dan modal), setiap nilai dinamis dilewatkan fungsi `escapeHTML()` terlebih dahulu.
+
+### Content Security Policy
+
+| Direktif | Nilai | Alasan |
+|---|---|---|
+| `default-src` | `'self'` | Blokir semua sumber luar secara default |
+| `style-src` | `'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com` | Bootstrap, Bootstrap Icons, Google Fonts; `unsafe-inline` dipakai untuk atribut `style` pada Toast container dan textarea |
+| `font-src` | `'self' https://fonts.gstatic.com https://cdn.jsdelivr.net` | File font Google Fonts dan Bootstrap Icons |
+| `script-src` | `'self' https://cdn.jsdelivr.net` | Hanya skrip lokal dan Bootstrap JS; tanpa skrip inline |
+| `img-src` | `'self' data:` | Gambar lokal dan data URI |
+| `connect-src` | `'self' https://httpbin.org` | `fetch` ke JSON lokal dan REST endpoint mock |
+
+---
+
+## 7. Pengukuran Network Profiling (DevTools)
+
+**Lingkungan uji:** Microsoft Edge / Chrome, DevTools → tab Network, URL: https://arthasiregar.github.io/ppw-2026-week2-12S24010/
+
+- **Cold Load**: *Disable cache* dicentang, lalu *hard reload* (Ctrl+Shift+R).
+- **Warm Load**: *Disable cache* dimatikan, lalu muat ulang biasa (F5) setelah cold load.
+
+### 7.1 Cold Load vs Warm Load
+
+> Isi dengan hasil pengukuran sendiri. Ambil nilai **DOMContentLoaded** dan **Load** dari bar bawah tab Network, **TTFB** dari tab *Timing* pada request `index.html`, dan **FCP** dari tab Lighthouse atau Performance.
+
+| Metrik | Cold Load | Warm Load | Selisih |
+|---|---|---|---|
+| TTFB `index.html` | … ms | … ms | … |
+| First Contentful Paint (FCP) | … ms | … ms | … |
+| DOMContentLoaded | … ms | … ms | … |
+| Load | … ms | … ms | … |
+| Jumlah request | … | … | … |
+| Data ditransfer | … kB | … kB | … |
+
+### 7.2 Analisis Caching per Berkas
+
+> Klik tiap berkas di tab Network, lihat *Response Headers* (`Cache-Control`, `ETag`) dan kolom *Status*.
+
+| Berkas | Status Cold | Status Warm | `Cache-Control` | `ETag` ada? | Keterangan |
+|---|---|---|---|---|---|
+| `index.html` | 200 | … (200 / 304) | … | … | … |
+| `css/custom-style.css` | 200 | … | … | … | … |
+| `js/app.js` | 200 | … | … | … | … |
+| `js/api-service.js` | 200 | … | … | … | … |
+| `data/projects.json` | 200 | … | … | … | … |
+| `data/profile.json` | 200 | … | … | … | … |
+| `data/services.json` | 200 | … | … | … | … |
+| `bootstrap.min.css` (CDN) | 200 | … (disk/memory cache) | … | … | … |
+
+### 7.3 Analisis
+
+Tuliskan 3–5 kalimat tentang:
+
+1. Berkas mana yang menghasilkan **304 Not Modified**, dan apa artinya (server memvalidasi `ETag`, body kosong, bandwidth hemat).
+2. Berkas mana yang dilayani langsung dari **disk/memory cache** tanpa request ke server (`max-age`).
+3. Penyebab selisih Cold vs Warm Load.
+4. Dampak arsitektur CSR: urutan **waterfall** (HTML → CSS/JS → JSON → render) dan efeknya pada FCP.
+
+### 7.4 Screenshot Waterfall
+
+| Cold Load | Warm Load |
+|---|---|
+| ![Waterfall Cold Load](docs/waterfall-cold.png) | ![Waterfall Warm Load](docs/waterfall-warm.png) |
+
+---
+
+## 8. Cara Menjalankan Secara Lokal
+
+> Halaman ini memakai `fetch()` untuk membaca JSON, sehingga **tidak bisa dibuka dengan klik dua kali** (`file://`). Gunakan server lokal.
+
+1. Clone repositori dan pindah ke branch Minggu 4:
+   ```bash
+   git clone https://github.com/Arthasiregar/ppw-2026-week2-12S24010.git
+   cd ppw-2026-week2-12S24010
+   git checkout week4-architecture
+   ```
+2. Buka folder di VS Code, klik kanan `index.html`, lalu pilih **Open with Live Server**.
+3. Pastikan ada koneksi internet karena Bootstrap, Bootstrap Icons, dan Google Fonts dimuat dari CDN.
+
+---
+
+## 9. Alur Kerja Git
+
+```bash
+git checkout -b week4-architecture
+git add .
+git commit -m "feat(week4): decouple architecture to json data providers and async CSR"
+git push -u origin week4-architecture
+```
+
+GitHub Pages: **Settings → Pages → Source: branch `week4-architecture`**.
+
+---
+
+## 10. Riwayat Pembaruan
+
+| Minggu | Fokus |
+|---|---|
+| 2 | HTML5 semantik dan CSS murni |
+| 3 | Integrasi Bootstrap 5.3, custom theming, modal, form modern |
+| 4 | Decoupled multi-tier, Dynamic CSR, Universal Modal, form REST, profiling DevTools |
+
+---
+
+Disusun oleh **Artha Liebe Siregar** (12S24010) untuk Mata Kuliah Pemrograman dan Pengujian Web (12S3101), Institut Teknologi Del.

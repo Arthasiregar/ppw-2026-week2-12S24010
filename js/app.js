@@ -24,12 +24,24 @@ const App = (() => {
   // (JSON atau input pengguna) WAJIB lewat sini sebelum dirender,
   // supaya tag seperti <script> tidak dieksekusi browser.
   function escapeHTML(str) {
-    if (str == null) return '';
-    const div = document.createElement('div');
-    div.textContent = String(str);
-    return div.innerHTML;
-  }
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+ }
 
+  // Hanya izinkan URL http/https agar "javascript:..." dari JSON tidak lolos
+  function safeUrl(url) {
+    try {
+      const u = new URL(url, window.location.href);
+      return ['http:', 'https:'].includes(u.protocol) ? url : '#';
+    } catch {
+      return '#';
+    }
+  }
   // =================================================================
   // 1. RENDER PROFILE (hero, skills, contact, education, experience)
   // =================================================================
@@ -60,7 +72,7 @@ const App = (() => {
     document.getElementById('contactPhone').href = `tel:${profile.contact.phone}`;
 
     document.getElementById('socialList').innerHTML = profile.socials.map(s => `
-      <li><a class="btn custom-btn-ghost btn-sm" href="${escapeHTML(s.url)}" target="_blank" rel="noopener">
+      <li><a class="btn custom-btn-ghost btn-sm" href="${escapeHTML(safeUrl(s.url))}" target="_blank" rel="noopener">
         <i class="bi ${escapeHTML(s.icon)}"></i> ${escapeHTML(s.name)}
       </a></li>
     `).join('');
@@ -128,7 +140,7 @@ const App = (() => {
             <div class="mt-auto d-flex gap-2">
               <button type="button" class="btn custom-btn-outline btn-sm flex-fill"
                       data-action="open-modal" data-id="${escapeHTML(p.id)}">Detail</button>
-              <a class="btn custom-btn-primary btn-sm flex-fill" href="${escapeHTML(p.link)}"
+              <a class="btn custom-btn-primary btn-sm flex-fill" href="${escapeHTML(safeUrl(p.link))}"
                  target="_blank" rel="noopener">Lihat Proyek</a>
             </div>
           </div>
@@ -168,8 +180,7 @@ const App = (() => {
       <p class="mb-2"><strong>Tools:</strong> ${proj.tags.map(escapeHTML).join(', ')}</p>
       <p class="mb-0"><strong>Peran:</strong> ${escapeHTML(proj.role)}</p>
     `;
-    document.getElementById('projectModalLink').href = proj.link;
-
+      document.getElementById('projectModalLink').href = safeUrl(proj.link);
     const modalEl = document.getElementById('universalProjectModal');
     bootstrap.Modal.getOrCreateInstance(modalEl).show();
   }
@@ -203,6 +214,14 @@ const App = (() => {
     const select = document.getElementById('kategori');
     const match = [...select.options].find(o => o.text.trim() === serviceName.trim());
     if (match) select.value = match.value;
+
+    // Cadangan: kalau nama layanan tidak cocok dengan opsi select,
+    // isi pesan otomatis supaya klik tetap menghasilkan efek yang terlihat
+    const pesan = document.getElementById('pesan');
+    if (!pesan.value) {
+      pesan.value = `Halo, saya tertarik dengan layanan "${serviceName}".`;
+    }
+
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     document.getElementById('nama').focus({ preventScroll: true });
   }
@@ -249,7 +268,11 @@ const App = (() => {
   function saveOrderToStorage(payload) {
     state.orders.unshift({ ...payload, submittedAt: new Date().toISOString() });
     state.orders = state.orders.slice(0, 10); // simpan 10 terakhir saja
-    localStorage.setItem(ORDERS_KEY, JSON.stringify(state.orders));
+    try {
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(state.orders));
+    } catch (err) {
+      console.warn('[App] localStorage tidak tersedia:', err);
+    }
     updateOrderBadge();
   }
 
@@ -325,31 +348,34 @@ const App = (() => {
     wireGlobalEvents();
     wireContactForm();
     loadOrdersFromStorage();
-
-    // Profile: kegagalan di sini tidak fatal, biarkan section lain tetap coba render
-    try {
-      const profile = await ApiService.getProfile();
-      renderProfile(profile);
-    } catch (err) {
-      console.error('[App] Gagal memuat profil:', err);
-    }
-
-    // Services
-    try {
-      const services = await ApiService.getServices();
-      state.services = services;
-      renderServices(services);
-    } catch (err) {
-      console.error('[App] Gagal memuat layanan:', err);
-    }
-
-    // Projects — dengan Loading / Success / Empty / Error state penuh
     setProjectsUIState('loading');
-    try {
-      const projects = await ApiService.getProjects();
-      state.projects = projects;
+
+    // Tiga request tidak saling bergantung, jadi dijalankan bersamaan.
+    // allSettled: kegagalan satu file tidak menggagalkan yang lain.
+    const [profileRes, servicesRes, projectsRes] = await Promise.allSettled([
+      ApiService.getProfile(),
+      ApiService.getServices(),
+      ApiService.getProjects()
+    ]);
+
+    if (profileRes.status === 'fulfilled') {
+      renderProfile(profileRes.value);
+    } else {
+      console.error('[App] Gagal memuat profil:', profileRes.reason);
+    }
+
+    if (servicesRes.status === 'fulfilled') {
+      state.services = servicesRes.value;
+      renderServices(servicesRes.value);
+    } else {
+      console.error('[App] Gagal memuat layanan:', servicesRes.reason);
+    }
+
+    if (projectsRes.status === 'fulfilled') {
+      state.projects = projectsRes.value;
       applyFilter('Semua');
-    } catch (err) {
+    } else {
+      console.error('[App] Gagal memuat proyek:', projectsRes.reason);
       setProjectsUIState('error');
     }
   }
