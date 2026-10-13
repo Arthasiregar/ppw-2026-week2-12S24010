@@ -376,7 +376,7 @@ const App = (() => {
       applyFilter('Semua');
     } else {
       console.error('[App] Gagal memuat proyek:', projectsRes.reason);
-      setProjectsUIState('error');
+      UIState('error');setProjects
     }
   }
 
